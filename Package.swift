@@ -9,7 +9,7 @@ let package = Package(
     ],
     products: [
         .library(name: "TripNestLib", targets: ["TripNestLib"]),
-        .executable(name: "TripNest", targets: ["TripNest"])
+        .executable(name: "TripNestCLI", targets: ["TripNestCLI"])
     ],
     targets: [
         // Library target for modular view access and Xcode Previews
@@ -32,7 +32,7 @@ let package = Package(
             ]
         ),
         .executableTarget(
-            name: "TripNest",
+            name: "TripNestCLI",
             dependencies: ["TripNestLib"],
             path: "App",
             exclude: [
