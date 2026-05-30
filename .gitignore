@@ -7,7 +7,7 @@ DerivedData/
 *.xcodeproj/project.xcworkspace/xcuserdata/
 *.xcworkspace/xcuserdata/
 .DS_Store
-profile
+/profile
 xcuserdata/
 
 # Swift Package Manager

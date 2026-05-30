@@ -80,7 +80,7 @@ def main():
         
         file_name = os.path.basename(f)
         build_files_section.append(f"\t\t{build_file} /* {file_name} in Sources */ = {{isa = PBXBuildFile; fileRef = {file_ref} /* {file_name} */; }};")
-        file_refs_section.append(f"\t\t{file_ref} /* {file_name} */ = {{isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = \"{file_name}\"; path = \"{f}\"; sourceTree = \"<group>\"; }};")
+        file_refs_section.append(f"\t\t{file_ref} /* {file_name} */ = {{isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = \"{file_name}\"; path = \"{f}\"; sourceTree = \"SOURCE_ROOT\"; }};")
         
     # Append application product bundle ref
     file_refs_section.append(f"\t\t{PRODUCT_FILE_REF_UUID} /* TripNest.app */ = {{isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripNest.app; sourceTree = BUILT_PRODUCTS_DIR; }};")
