@@ -25,6 +25,11 @@ TripNest is crafted with a focus on high-fidelity user experiences, leveraging m
 * 🔮 **Glassmorphism**: Login cards and dialog overlays utilize premium `.ultraThinMaterial` backgrounds overlaid with translucent borders and soft glowing shadows.
 * ⚡ **Micro-Animations**: Grid displays, page navigation views, and list selection states feature smooth transitions and scale feedback animations for responsive touch interactions.
 
+<p align="center">
+  <img src="Assets/login_screen_mockup.png" width="380" alt="Login Screen Mockup" style="border-radius: 24px; margin-right: 16px; box-shadow: 0px 8px 32px rgba(0, 119, 255, 0.25);" />
+  <img src="Assets/explore_screen_mockup.png" width="380" alt="Explore Screen Mockup" style="border-radius: 24px; box-shadow: 0px 8px 32px rgba(0, 119, 255, 0.25);" />
+</p>
+
 ---
 
 ## 🚀 Key Features
@@ -149,6 +154,12 @@ For validation or command-line developer setups, you can compile target librarie
 ```bash
 swift build
 ```
+
+---
+
+## 👥 Creator
+
+* 👤 **Vedant Dubey** - [GitHub Profile](https://github.com/vedantdubey19)
 
 ---
 
