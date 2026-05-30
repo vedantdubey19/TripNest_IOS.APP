@@ -4,7 +4,7 @@ extension View {
     @ViewBuilder
     func navigationBarTitleDisplayModeInline() -> some View {
         #if os(iOS)
-        self.navigationBarTitleDisplayModeInline()
+        self.navigationBarTitleDisplayMode(.inline)
         #else
         self
         #endif
