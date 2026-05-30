@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="Assets/logo.png" alt="TripNest Logo" width="220" height="220" />
+  <img src="Assets/logo.png" alt="TripNest Logo" width="180" height="180" style="border-radius: 36px; box-shadow: 0px 8px 24px rgba(0, 119, 255, 0.3);" />
 </p>
 
 <h1 align="center">🏡 TripNest</h1>
 
 <p align="center">
-  A premium, high-fidelity iOS travel booking and accommodation application built natively with <b>SwiftUI</b> and <b>MapKit</b>.
+  <b>A premium, high-fidelity iOS travel booking and accommodation application built natively with SwiftUI, MapKit, and Swift Package Manager.</b>
 </p>
 
 <p align="center">
@@ -18,43 +18,43 @@
 
 ---
 
-## ✨ Features
+## ✨ Design & Visual Philosophy
 
-- **🔐 Premium Authentication Flow**
-  - Sleek, modern [LoginView](file:///Users/vedantdubey_20/TripNest/Views/Auth/LoginView.swift) and [RegisterView](file:///Users/vedantdubey_20/TripNest/Views/Auth/RegisterView.swift) interfaces.
-  - Secure credential storage using **iOS Keychain Services** via the custom [KeychainManager](file:///Users/vedantdubey_20/TripNest/Core/Storage/KeychainManager.swift).
-  
-- **🔍 Browse & Filter Stays**
-  - A beautiful, fluid explore feed ([HomeView](file:///Users/vedantdubey_20/TripNest/Views/Home/HomeView.swift)) with smooth grid animations.
-  - Instant text search (by city, country, or title) powered by [ListingListViewModel](file:///Users/vedantdubey_20/TripNest/ViewModels/ListingListViewModel.swift).
-  - Horizontal category scroll selectors with dynamic gradient highlights.
-  - Native pull-to-refresh data updates.
+TripNest is crafted with a focus on high-fidelity user experiences, leveraging modern design patterns:
+* 🌌 **Sleek Dark Mode Theme**: Fully locked into a luxurious dark color palette featuring vibrant glowing accents, high-contrast text hierarchies, and deep blue-indigo backdrops.
+* 🔮 **Glassmorphism**: Login cards and dialog overlays utilize premium `.ultraThinMaterial` backgrounds overlaid with translucent borders and soft glowing shadows.
+* ⚡ **Micro-Animations**: Grid displays, page navigation views, and list selection states feature smooth transitions and scale feedback animations for responsive touch interactions.
 
-- **🗺️ Interactive Map Exploration**
-  - Live map overlay ([ListingsMapView](file:///Users/vedantdubey_20/TripNest/Views/Map/ListingsMapView.swift)) presenting property coordinates with custom MapKit annotations.
+---
 
-- **🏡 Listing Detail Spotlights**
-  - High-fidelity [ListingDetailView](file:///Users/vedantdubey_20/TripNest/Views/Detail/ListingDetailView.swift) screens.
-  - Custom [ImageCarouselView](file:///Users/vedantdubey_20/TripNest/Views/Detail/ImageCarouselView.swift) with swipe transitions.
-  - Comprehensive listing metadata details (host info, pricing, description).
+## 🚀 Key Features
 
-- **✍️ Community Feedback & Reviews**
-  - Dedicated [ReviewRowView](file:///Users/vedantdubey_20/TripNest/Views/Detail/ReviewRowView.swift) item styles.
-  - Fully integrated options to submit or delete user feedback.
-
-- **➕ Host Listing Creator**
-  - Interactive property publisher ([CreateListingView](file:///Users/vedantdubey_20/TripNest/Views/Create/CreateListingView.swift)).
-  - Interactive inputs including title, description, price, location, country, and image uploads.
+* 🔐 **Secure Authentication**
+  * Premium, responsive [LoginView](file:///Users/vedantdubey_20/TripNest/Views/Auth/LoginView.swift) and [RegisterView](file:///Users/vedantdubey_20/TripNest/Views/Auth/RegisterView.swift).
+  * Hardware-backed storage using iOS Keychain Services via the custom [KeychainManager](file:///Users/vedantdubey_20/TripNest/Core/Storage/KeychainManager.swift).
+* 🔍 **Browse & Filter Listings**
+  * Modern explore feed ([HomeView](file:///Users/vedantdubey_20/TripNest/Views/Home/HomeView.swift)) with dynamic category horizontal sliders and listing thumbnails.
+  * Instant search filtering by city, country, or listing title powered by [ListingListViewModel](file:///Users/vedantdubey_20/TripNest/ViewModels/ListingListViewModel.swift).
+* 🗺️ **Interactive Maps**
+  * Native [ListingsMapView](file:///Users/vedantdubey_20/TripNest/Views/Map/ListingsMapView.swift) interface.
+  * Custom MapKit pin annotations showing listed properties with direct access to details.
+* 📖 **Interactive Details & Spotlights**
+  * Detailed property pages ([ListingDetailView](file:///Users/vedantdubey_20/TripNest/Views/Detail/ListingDetailView.swift)) with an image paging carousel, detailed specifications, and host profiles.
+* ✍️ **Reviews & Feedback**
+  * Integrated [ReviewRowView](file:///Users/vedantdubey_20/TripNest/Views/Detail/ReviewRowView.swift) items.
+  * Ability for authenticated users to post new reviews or delete their own feedback.
+* ➕ **Become a Host**
+  * Publish new properties directly inside the app using the [CreateListingView](file:///Users/vedantdubey_20/TripNest/Views/Create/CreateListingView.swift) form (title, address, price, description, and preview image upload).
 
 ---
 
 ## 🏗️ Architecture & Data Flow
 
-TripNest is engineered using the **Model-View-ViewModel (MVVM)** design pattern, promoting clean separation of concerns and robust data flow.
+The project is structured under the **Model-View-ViewModel (MVVM)** architecture pattern, separating data handling, business logic, and UI display.
 
 ```mermaid
 graph TD
-    subgraph View Layer [SwiftUI Views]
+    subgraph UI_Layer [SwiftUI Views]
         ContentView[ContentView] --> HomeView[HomeView]
         ContentView --> ListingsMapView[ListingsMapView]
         ContentView --> ProfileView[ProfileView]
@@ -63,85 +63,94 @@ graph TD
         ListingDetailView --> ReviewRowView[ReviewRowView]
     end
 
-    subgraph ViewModel Layer [Observable State]
+    subgraph ViewModel_Layer [State Management]
         HomeView -- observes --> ListingListViewModel[ListingListViewModel]
         ListingsMapView -- observes --> ListingListViewModel
         ProfileView -- observes --> ListingListViewModel
-        CreateListingView -- interacts with --> CreateListingViewModel[CreateListingViewModel]
-        ListingDetailView -- interacts with --> ListingDetailViewModel[ListingDetailViewModel]
-        ListingDetailView -- interacts with --> ReviewViewModel[ReviewViewModel]
+        CreateListingView -- writes via --> CreateListingViewModel[CreateListingViewModel]
+        ListingDetailView -- manages via --> ListingDetailViewModel[ListingDetailViewModel]
+        ListingDetailView -- writes via --> ReviewViewModel[ReviewViewModel]
+        ContentView -- observes --> AuthViewModel[AuthViewModel]
     end
 
-    subgraph Repository Layer [Data Handlers]
-        ListingListViewModel -- fetches via --> ListingRepository[ListingRepository]
-        CreateListingViewModel -- posts via --> ListingRepository
-        ListingDetailViewModel -- fetches via --> ListingRepository
-        ReviewViewModel -- writes via --> ReviewRepository[ReviewRepository]
-        AuthViewModel[AuthViewModel] -- auths via --> AuthRepository[AuthRepository]
+    subgraph Data_Layer [Repositories]
+        ListingListViewModel -- fetches --> ListingRepository[ListingRepository]
+        CreateListingViewModel -- posts --> ListingRepository
+        ListingDetailViewModel -- fetches --> ListingRepository
+        ReviewViewModel -- manages --> ReviewRepository[ReviewRepository]
+        AuthViewModel -- validates --> AuthRepository[AuthRepository]
     end
 
-    subgraph Core & Networking
-        ListingRepository -- requests --> APIClient[APIClient]
-        ReviewRepository -- requests --> APIClient
-        AuthRepository -- requests --> APIClient
-        APIClient -- uses --> APIEndpoint[APIEndpoint]
-        APIClient -- reads/writes token --> KeychainManager[KeychainManager]
+    subgraph Network_Storage [Networking & Local Storage]
+        ListingRepository -- calls --> APIClient[APIClient]
+        ReviewRepository -- calls --> APIClient
+        AuthRepository -- calls --> APIClient
+        APIClient -- routes paths --> APIEndpoint[APIEndpoint]
+        APIClient -- reads tokens --> KeychainManager[KeychainManager]
     end
 
-    subgraph Remote Backend [Node.js REST API]
-        APIClient -- HTTP Requests --> ExpressServer[Express API / MongoDB]
+    subgraph Backend_Server [REST API Node.js]
+        APIClient -- HTTP Requests --> MongoDB[(Express/MongoDB Server)]
     end
 ```
 
 ---
 
-## 📁 Project Structure
+## 📁 Directory Structure
 
-Here is a look at how the codebase is structured for local workspace access:
-
-* 📦 **[Package.swift](file:///Users/vedantdubey_20/TripNest/Package.swift)** — Swift Package Manager manifest defining compilation targets.
-* 🛠️ **[generate_xcodeproj.py](file:///Users/vedantdubey_20/TripNest/generate_xcodeproj.py)** — Automatically configures the local Xcode workspace layout.
-* 🚀 **[App/](file:///Users/vedantdubey_20/TripNest/App)** — Entry points and core view wrappers.
-  * [TripNestApp.swift](file:///Users/vedantdubey_20/TripNest/App/TripNestApp.swift) — The main application structure.
-  * [ContentView.swift](file:///Users/vedantdubey_20/TripNest/App/ContentView.swift) — Orchestrates authenticated tab routing.
-* 🧬 **[Core/](file:///Users/vedantdubey_20/TripNest/Core)** — Storage managers and network execution clients.
-  * [Network/APIClient.swift](file:///Users/vedantdubey_20/TripNest/Core/Network/APIClient.swift) — Asynchronous URLSession handler.
-  * [Network/APIEndpoint.swift](file:///Users/vedantdubey_20/TripNest/Core/Network/APIEndpoint.swift) — Type-safe router for API paths.
-  * [Storage/KeychainManager.swift](file:///Users/vedantdubey_20/TripNest/Core/Storage/KeychainManager.swift) — Keychain helper for token security.
-* 💾 **[Models/](file:///Users/vedantdubey_20/TripNest/Models)** — Core data objects.
-  * [Listing.swift](file:///Users/vedantdubey_20/TripNest/Models/Listing.swift) | [User.swift](file:///Users/vedantdubey_20/TripNest/Models/User.swift) | [Review.swift](file:///Users/vedantdubey_20/TripNest/Models/Review.swift)
-* 💼 **[ViewModels/](file:///Users/vedantdubey_20/TripNest/ViewModels)** — Logic wrappers representing state.
-  * [ListingListViewModel.swift](file:///Users/vedantdubey_20/TripNest/ViewModels/ListingListViewModel.swift) — Handles listings feeds, filters, and searches.
-  * [AuthViewModel.swift](file:///Users/vedantdubey_20/TripNest/ViewModels/AuthViewModel.swift) — Coordinates registration/login flow.
-* 🎨 **[Views/](file:///Users/vedantdubey_20/TripNest/Views)** — Declarative SwiftUI user interface modules.
+```bash
+TripNest/
+├── App/
+│   ├── Assets.xcassets/         # App icons & brand logos
+│   ├── ContentView.swift        # Main route controller
+│   └── TripNestApp.swift        # iOS App Entry Point
+├── Core/
+│   ├── Network/
+│   │   ├── APIClient.swift      # URLSession networking wrapper
+│   │   └── APIEndpoint.swift    # API route compiler
+│   └── Storage/
+│       └── KeychainManager.swift# Secure Token Storage
+├── Models/                      # Decodable models (User, Listing, Review)
+├── ViewModels/                  # Views state logic
+├── Views/                       # SwiftUI files
+│   ├── Auth/                    # Login & Registration
+│   ├── Create/                  # List a Property
+│   ├── Detail/                  # Carousel details & Reviews
+│   ├── Home/                    # Listings Feed
+│   └── Map/                     # Custom MapKit search
+├── TripNest.xcodeproj/          # Compiled project configurations
+├── Package.swift                # SPM target configurations
+└── generate_xcodeproj.py        # Python project generator script
+```
 
 ---
 
 ## 🚀 Getting Started
 
-### Prerequisites
-* **macOS** with **Xcode 15.0+** installed.
-* **Python 3** (to execute project generation).
-* A running **TripNest Backend Server** (Node.js REST API).
-
-### 1. Set Up the Backend Endpoint
-By default, the client directs queries to `http://localhost:3000/api`. To direct the client to your specific local machine IP or custom server, update `baseURLString` inside:
-👉 **[Core/Network/APIEndpoint.swift](file:///Users/vedantdubey_20/TripNest/Core/Network/APIEndpoint.swift)**
-
+### 1. Set Up the Backend
+Ensure you have a running TripNest Backend Server (Express/MongoDB API). Update the endpoint IP in [APIEndpoint.swift](file:///Users/vedantdubey_20/TripNest/Core/Network/APIEndpoint.swift):
 ```swift
-static var baseURLString: String = "http://YOUR_SERVER_IP:3000/api"
+static var baseURLString: String = "http://YOUR_LOCAL_SERVER_IP:3000/api"
 ```
 
-### 2. Generate the Xcode Project
-TripNest uses a Python generator to build an `.xcodeproj` container for development. Run the generator script in the root folder:
-
+### 2. Generate Xcode Project
+The codebase maintains a lightweight footprint by generating the Xcode project layout dynamically. Re-generate the project container before building:
 ```bash
 python3 generate_xcodeproj.py
 ```
 
-This generates `TripNest.xcodeproj` in the workspace root.
-
 ### 3. Build & Run
-1. Open **`TripNest.xcodeproj`** in Xcode.
-2. Select the `TripNest` executable target and choose an iOS 17+ Simulator or connected device.
-3. Build and run using `⌘ + R`!
+1. Open the generated `TripNest.xcodeproj` workspace in Xcode.
+2. Select the `TripNest` scheme.
+3. Choose an iOS simulator (iOS 17+) and hit `⌘ + R` to compile and run!
+
+### 4. Build via SPM CLI (Alternative)
+For validation or command-line developer setups, you can compile target libraries directly:
+```bash
+swift build
+```
+
+---
+
+## 📄 License
+This project is licensed under the MIT License. See LICENSE for details.

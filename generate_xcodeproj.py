@@ -52,6 +52,11 @@ def main():
             if item not in groups[parent_path]:
                 groups[parent_path].append(item)
                 
+    # Insert Assets.xcassets group representation under App group
+    if "App" not in groups:
+        groups["App"] = []
+    groups["App"].append(("Assets.xcassets", False, "App/Assets.xcassets"))
+    
     # Define UUID Constants
     PROJECT_UUID = "DF798B752C8D40578AFEB040"
     TARGET_UUID = "DF798B762C8D40578AFEB040"
@@ -68,6 +73,10 @@ def main():
     TARGET_DEBUG_CONFIG_UUID = "DF798B812C8D40578AFEB040"
     TARGET_RELEASE_CONFIG_UUID = "DF798B822C8D40578AFEB040"
     
+    # Asset catalog UUIDs
+    ASSETS_REF_UUID = "DF798B8D2C8D40578AFEB040"
+    ASSETS_BLD_UUID = "DF798B8E2C8D40578AFEB040"
+    
     build_files_section = []
     file_refs_section = []
     groups_section = []
@@ -82,6 +91,11 @@ def main():
         build_files_section.append(f"\t\t{build_file} /* {file_name} in Sources */ = {{isa = PBXBuildFile; fileRef = {file_ref} /* {file_name} */; }};")
         file_refs_section.append(f"\t\t{file_ref} /* {file_name} */ = {{isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = \"{file_name}\"; path = \"{f}\"; sourceTree = \"SOURCE_ROOT\"; }};")
         
+    # Append Assets.xcassets reference and build file
+    file_uuids["App/Assets.xcassets"] = (ASSETS_REF_UUID, ASSETS_BLD_UUID)
+    build_files_section.append(f"\t\t{ASSETS_BLD_UUID} /* Assets.xcassets in Resources */ = {{isa = PBXBuildFile; fileRef = {ASSETS_REF_UUID} /* Assets.xcassets */; }};")
+    file_refs_section.append(f"\t\t{ASSETS_REF_UUID} /* Assets.xcassets */ = {{isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = \"Assets.xcassets\"; path = \"App/Assets.xcassets\"; sourceTree = \"SOURCE_ROOT\"; }};")
+    
     # Append application product bundle ref
     file_refs_section.append(f"\t\t{PRODUCT_FILE_REF_UUID} /* TripNest.app */ = {{isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripNest.app; sourceTree = BUILT_PRODUCTS_DIR; }};")
     
@@ -242,6 +256,7 @@ def main():
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				{ASSETS_BLD_UUID} /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		}};

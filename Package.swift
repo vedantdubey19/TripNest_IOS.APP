@@ -18,6 +18,7 @@ let package = Package(
             path: ".",
             exclude: [
                 "App/TripNestApp.swift",
+                "App/Assets.xcassets",
                 "generate_xcodeproj.py",
                 "README.md",
                 "Assets"
@@ -36,7 +37,8 @@ let package = Package(
             dependencies: ["TripNestLib"],
             path: "App",
             exclude: [
-                "ContentView.swift"
+                "ContentView.swift",
+                "Assets.xcassets"
             ],
             sources: [
                 "TripNestApp.swift"

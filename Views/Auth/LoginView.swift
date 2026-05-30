@@ -41,15 +41,12 @@ struct LoginView: View {
                     VStack(spacing: 32) {
                         // Logo & Brand Header
                         VStack(spacing: 12) {
-                            Image(systemName: "house.and.flag.fill")
-                                .font(.system(size: 64))
-                                .foregroundStyle(
-                                    LinearGradient(
-                                        colors: [.blue, .indigo],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
+                            Image("Logo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 120, height: 120)
+                                .clipShape(RoundedRectangle(cornerRadius: 24))
+                                .shadow(color: Color.blue.opacity(0.3), radius: 10, y: 5)
                                 .padding(.bottom, 8)
                             
                             Text("TripNest")

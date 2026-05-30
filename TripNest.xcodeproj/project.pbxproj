@@ -37,6 +37,7 @@
 		12A41568476E88EB98DEF01E /* ListingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463BC64851566FC70D2933F /* ListingCardView.swift */; };
 		A10564B70A1D8ED407D46EBA /* ListingsMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD2F00A3A7B9D25B11C8372 /* ListingsMapView.swift */; };
 		FA46E6618C0B76BDCAC563DB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5282AA7022566D3F03F36D /* ProfileView.swift */; };
+		DF798B8E2C8D40578AFEB040 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF798B8D2C8D40578AFEB040 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		C463BC64851566FC70D2933F /* ListingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ListingCardView.swift"; path = "Views/Home/ListingCardView.swift"; sourceTree = "SOURCE_ROOT"; };
 		1AD2F00A3A7B9D25B11C8372 /* ListingsMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ListingsMapView.swift"; path = "Views/Map/ListingsMapView.swift"; sourceTree = "SOURCE_ROOT"; };
 		1D5282AA7022566D3F03F36D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProfileView.swift"; path = "Views/Profile/ProfileView.swift"; sourceTree = "SOURCE_ROOT"; };
+		DF798B8D2C8D40578AFEB040 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Assets.xcassets"; path = "App/Assets.xcassets"; sourceTree = "SOURCE_ROOT"; };
 		DF798B7C2C8D40578AFEB040 /* TripNest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripNest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -102,6 +104,7 @@
 		35091BE841BD9A989401D204 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				DF798B8D2C8D40578AFEB040 /* Assets.xcassets */,
 				EC4D074BDD86422AB1D12D96 /* ContentView.swift */,
 				A93A8C19874F8F843A6A1848 /* TripNestApp.swift */,
 			);
@@ -315,6 +318,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF798B8E2C8D40578AFEB040 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
