@@ -56,5 +56,20 @@ public final class LocalStoreManager {
         current.insert(booking, at: 0) // Prepend newest bookings
         saveBookings(current)
     }
+    
+    // MARK: - Theme Preference (Light/Dark Mode)
+    
+    private let themeKey = "tripnest_is_dark_mode"
+    
+    public func isDarkMode() -> Bool {
+        if UserDefaults.standard.object(forKey: themeKey) == nil {
+            return true // Default to dark mode for TripNest signature look
+        }
+        return UserDefaults.standard.bool(forKey: themeKey)
+    }
+    
+    public func setDarkMode(_ isDark: Bool) {
+        UserDefaults.standard.set(isDark, forKey: themeKey)
+    }
 }
 // Note: Swift 5.9 doesn't allow 'val' inside classes, changed to static let.

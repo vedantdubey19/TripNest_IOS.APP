@@ -27,7 +27,7 @@ struct ListingDetailView: View {
     var body: some View {
         ZStack {
             // Base background
-            Color(red: 0.05, green: 0.05, blue: 0.08)
+            listViewModel.themeBg
                 .ignoresSafeArea()
             
             if detailViewModel.isLoading && detailViewModel.listing == nil {
@@ -57,7 +57,7 @@ struct ListingDetailView: View {
                                         Text(String(format: "$%.0f", listing.price))
                                             .font(.title2)
                                             .fontWeight(.black)
-                                            .foregroundColor(.white)
+                                            .foregroundColor(listViewModel.themeText)
                                         Text("/ night")
                                             .font(.caption)
                                             .foregroundColor(.gray)
@@ -66,7 +66,7 @@ struct ListingDetailView: View {
                                     Text(listing.title)
                                         .font(.title)
                                         .fontWeight(.bold)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(listViewModel.themeText)
                                     
                                     Text("Hosted by \(listing.owner.username)")
                                         .font(.footnote)
@@ -81,7 +81,7 @@ struct ListingDetailView: View {
                                 VStack(alignment: .leading, spacing: 8) {
                                     Text("About this space")
                                         .font(.headline)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(listViewModel.themeText)
                                     
                                     Text(listing.description)
                                         .font(.body)
@@ -96,7 +96,7 @@ struct ListingDetailView: View {
                                 VStack(alignment: .leading, spacing: 12) {
                                     Text("Where you'll be")
                                         .font(.headline)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(listViewModel.themeText)
                                     
                                     if let coord = coordinate {
                                         Map(position: $cameraPosition) {
@@ -137,7 +137,7 @@ struct ListingDetailView: View {
                                 VStack(alignment: .leading, spacing: 12) {
                                     Text("Leave a Review")
                                         .font(.headline)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(listViewModel.themeText)
                                     
                                     VStack(spacing: 12) {
                                         // Interactive Stars selector
@@ -163,12 +163,12 @@ struct ListingDetailView: View {
                                         TextField("Write your review comment...", text: $reviewViewModel.comment, axis: .vertical)
                                             .lineLimit(3...5)
                                             .padding()
-                                            .foregroundColor(.white)
-                                            .background(Color.white.opacity(0.04))
+                                            .foregroundColor(listViewModel.themeText)
+                                            .background(listViewModel.themeCardBg)
                                             .cornerRadius(12)
                                             .overlay(
                                                 RoundedRectangle(cornerRadius: 12)
-                                                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                                                    .stroke(listViewModel.themeBorder, lineWidth: 1)
                                             )
                                         
                                         // Submit Button
@@ -201,11 +201,11 @@ struct ListingDetailView: View {
                                         .disabled(!reviewViewModel.isReviewValid || reviewViewModel.isLoading)
                                     }
                                     .padding(16)
-                                    .background(Color.white.opacity(0.02))
+                                    .background(listViewModel.themeCardBg)
                                     .cornerRadius(16)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 16)
-                                            .stroke(Color.white.opacity(0.04), lineWidth: 1)
+                                            .stroke(listViewModel.themeBorder, lineWidth: 1)
                                     )
                                 }
                                 
@@ -216,7 +216,7 @@ struct ListingDetailView: View {
                                 VStack(alignment: .leading, spacing: 14) {
                                     Text("Reviews (\(listing.reviews.count))")
                                         .font(.headline)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(listViewModel.themeText)
                                     
                                     if listing.reviews.isEmpty {
                                         Text("No reviews yet. Be the first to share your experience!")
@@ -261,7 +261,7 @@ struct ListingDetailView: View {
                                         Text(String(format: "$%.0f", listing.price))
                                             .font(.title2)
                                             .fontWeight(.black)
-                                            .foregroundColor(.white)
+                                            .foregroundColor(listViewModel.themeText)
                                         Text("/ night")
                                             .font(.caption)
                                             .foregroundColor(.gray)
@@ -287,7 +287,7 @@ struct ListingDetailView: View {
                             }
                             .padding(.horizontal, 20)
                             .padding(.vertical, 16)
-                            .background(Color(red: 0.05, green: 0.05, blue: 0.08))
+                            .background(listViewModel.themeBg)
                         }
                     }
                 }
@@ -313,7 +313,7 @@ struct ListingDetailView: View {
                         }) {
                             Image(systemName: listViewModel.isFavorite(listingId: listing.id) ? "star.fill" : "star")
                                 .font(.title3)
-                                .foregroundColor(listViewModel.isFavorite(listingId: listing.id) ? .yellow : .white)
+                                .foregroundColor(listViewModel.isFavorite(listingId: listing.id) ? .yellow : listViewModel.themeText)
                         }
                     }
                     

@@ -5,8 +5,8 @@ struct BookingHistoryView: View {
     
     var body: some View {
         ZStack {
-            // Theme Dark Background
-            Color(red: 0.05, green: 0.05, blue: 0.08)
+            // Theme dynamic Background
+            listViewModel.themeBg
                 .ignoresSafeArea()
             
             ScrollView(showsIndicators: false) {
@@ -28,7 +28,7 @@ struct BookingHistoryView: View {
                         Text("No Bookings Found")
                             .font(.system(.title3, design: .rounded))
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundColor(listViewModel.themeText)
                         
                         Text("When you reserve a stay, your booking summary and travel history will appear here.")
                             .font(.subheadline)
@@ -77,7 +77,7 @@ struct BookingHistoryView: View {
                                         Text(booking.listingTitle)
                                             .font(.subheadline)
                                             .fontWeight(.bold)
-                                            .foregroundColor(.white)
+                                            .foregroundColor(listViewModel.themeText)
                                             .lineLimit(1)
                                         
                                         Text("\(booking.checkInDate.formatted(date: .abbreviated, time: .omitted)) - \(booking.checkOutDate.formatted(date: .abbreviated, time: .omitted))")
@@ -109,7 +109,7 @@ struct BookingHistoryView: View {
                                         Text("\(booking.currencyIcon)\(Int(booking.totalPrice))")
                                             .font(.headline)
                                             .fontWeight(.black)
-                                            .foregroundColor(.white)
+                                            .foregroundColor(listViewModel.themeText)
                                         Text(booking.currency)
                                             .font(.system(size: 9, weight: .bold))
                                             .foregroundColor(.gray)
@@ -118,11 +118,11 @@ struct BookingHistoryView: View {
                                 }
                             }
                             .padding(14)
-                            .background(Color.white.opacity(0.02))
+                            .background(listViewModel.themeCardBg)
                             .cornerRadius(18)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 18)
-                                    .stroke(Color.white.opacity(0.04), lineWidth: 1)
+                                    .stroke(listViewModel.themeBorder, lineWidth: 1)
                             )
                         }
                     }

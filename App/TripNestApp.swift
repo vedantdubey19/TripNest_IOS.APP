@@ -11,7 +11,6 @@ struct TripNestApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(authViewModel)
-                .preferredColorScheme(.dark) // Lock app to dark theme for our high-end aesthetic
         }
     }
 }

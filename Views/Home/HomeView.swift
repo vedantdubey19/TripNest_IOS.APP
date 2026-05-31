@@ -15,8 +15,8 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background dark shade matching our system
-                Color(red: 0.05, green: 0.05, blue: 0.08)
+                // Background dynamic theme shade matching our system
+                listViewModel.themeBg
                     .ignoresSafeArea()
                 
                 VStack(spacing: 0) {
@@ -26,7 +26,7 @@ struct HomeView: View {
                             Text("Find Your Nest")
                                 .font(.system(.title, design: .rounded))
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(listViewModel.themeText)
                             Text("Discover unique stays around the world")
                                 .font(.caption)
                                 .foregroundColor(.gray)
@@ -65,7 +65,7 @@ struct HomeView: View {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
                         TextField("Search city, country, title...", text: $listViewModel.searchText)
-                            .foregroundColor(.white)
+                            .foregroundColor(listViewModel.themeText)
                             .tint(.blue)
                         
                         if !listViewModel.searchText.isEmpty {
@@ -76,7 +76,7 @@ struct HomeView: View {
                         }
                     }
                     .padding(12)
-                    .background(Color.white.opacity(0.06))
+                    .background(listViewModel.themeCardBg)
                     .cornerRadius(12)
                     .padding(.horizontal)
                     .padding(.top, 16)
@@ -98,13 +98,13 @@ struct HomeView: View {
                                         .background(
                                             listViewModel.selectedCategory == category ?
                                             LinearGradient(colors: [.blue, .indigo], startPoint: .topLeading, endPoint: .bottomTrailing) :
-                                            LinearGradient(colors: [Color.white.opacity(0.05)], startPoint: .leading, endPoint: .trailing)
+                                            LinearGradient(colors: [listViewModel.themeCardBg], startPoint: .leading, endPoint: .trailing)
                                         )
-                                        .foregroundColor(.white)
+                                        .foregroundColor(listViewModel.isDarkMode ? .white : (listViewModel.selectedCategory == category ? .white : .black))
                                         .cornerRadius(20)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 20)
-                                                .stroke(listViewModel.selectedCategory == category ? Color.blue.opacity(0.3) : Color.white.opacity(0.05), lineWidth: 1)
+                                                .stroke(listViewModel.selectedCategory == category ? Color.blue.opacity(0.3) : listViewModel.themeBorder, lineWidth: 1)
                                         )
                                 }
                             }
@@ -130,7 +130,7 @@ struct HomeView: View {
                                     .foregroundColor(.gray)
                                 Text("No Listings Found")
                                     .font(.headline)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(listViewModel.themeText)
                                 Text("Try adjusting your search filters.")
                                     .font(.subheadline)
                                     .foregroundColor(.gray)

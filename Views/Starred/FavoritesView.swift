@@ -11,8 +11,8 @@ struct FavoritesView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background dark shade matching our system
-                Color(red: 0.05, green: 0.05, blue: 0.08)
+                // Background dynamic theme shade matching our system
+                listViewModel.themeBg
                     .ignoresSafeArea()
                 
                 VStack(spacing: 0) {
@@ -37,7 +37,7 @@ struct FavoritesView: View {
                                 Text("No Starred Nests Yet")
                                     .font(.system(.title3, design: .rounded))
                                     .fontWeight(.bold)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(listViewModel.themeText)
                                 
                                 Text("Tap the star icon on any unique stay to save it in your favorites collection.")
                                     .font(.subheadline)

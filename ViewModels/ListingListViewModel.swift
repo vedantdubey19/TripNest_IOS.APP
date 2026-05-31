@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import SwiftUI
 
 /// ListingListViewModel manages the state for browsing travel listings, wishlists, and user bookings.
 @MainActor
@@ -16,6 +17,28 @@ final class ListingListViewModel: ObservableObject {
     // Starred Favorites & Bookings State
     @Published var starredListingIds: Set<String> = []
     @Published var bookings: [Booking] = []
+    @Published var isDarkMode: Bool = true
+    
+    // Theme Colors
+    var themeBg: Color {
+        isDarkMode ? Color(red: 0.05, green: 0.05, blue: 0.08) : Color(red: 0.95, green: 0.95, blue: 0.97)
+    }
+    
+    var themeCardBg: Color {
+        isDarkMode ? Color.white.opacity(0.02) : Color.white
+    }
+    
+    var themeText: Color {
+        isDarkMode ? .white : .black
+    }
+    
+    var themeBorder: Color {
+        isDarkMode ? Color.white.opacity(0.04) : Color.black.opacity(0.06)
+    }
+    
+    var themeDivider: Color {
+        isDarkMode ? Color.white.opacity(0.1) : Color.black.opacity(0.08)
+    }
     
     /// Categories presented in the top scroll view filter.
     let categories = ["All", "Stays", "Beachfront", "Mountain", "Trending", "Cabins"]
@@ -31,6 +54,12 @@ final class ListingListViewModel: ObservableObject {
     func loadLocalData() {
         self.starredListingIds = LocalStoreManager.shared.getFavorites()
         self.bookings = LocalStoreManager.shared.getBookings()
+        self.isDarkMode = LocalStoreManager.shared.isDarkMode()
+    }
+    
+    func toggleTheme() {
+        isDarkMode.toggle()
+        LocalStoreManager.shared.setDarkMode(isDarkMode)
     }
     
     /// Fetches all listings from the repository.

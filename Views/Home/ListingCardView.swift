@@ -94,7 +94,7 @@ struct ListingCardView: View {
                 Text(listing.title)
                     .font(.body)
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .foregroundColor(listViewModel.themeText)
                     .lineLimit(1)
                 
                 Text(listing.description)
@@ -107,7 +107,7 @@ struct ListingCardView: View {
                     Text(String(format: "$%.0f", listing.price))
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundColor(.white)
+                        .foregroundColor(listViewModel.themeText)
                     
                     Text("night")
                         .font(.caption2)
@@ -118,11 +118,11 @@ struct ListingCardView: View {
             .padding(.horizontal, 4)
         }
         .padding(8)
-        .background(Color.white.opacity(0.02))
+        .background(listViewModel.themeCardBg)
         .cornerRadius(20)
         .overlay(
             RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.white.opacity(0.04), lineWidth: 1)
+                .stroke(listViewModel.themeBorder, lineWidth: 1)
         )
     }
 }

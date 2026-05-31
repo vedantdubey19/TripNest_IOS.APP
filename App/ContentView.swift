@@ -47,6 +47,7 @@ public struct ContentView: View {
                         .tag(3)
                 }
                 .tint(.blue) // Premium navigation tint
+                .preferredColorScheme(listViewModel.isDarkMode ? .dark : .light)
                 .onAppear {
                     #if os(iOS)
                     // Set TabBar appearance for dark mode compatibility and sleek styling

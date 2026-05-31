@@ -13,8 +13,8 @@ struct ProfileView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background dark tone
-                Color(red: 0.05, green: 0.05, blue: 0.08)
+                // Background dynamic theme shade
+                listViewModel.themeBg
                     .ignoresSafeArea()
                 
                 ScrollView(showsIndicators: false) {
@@ -39,7 +39,7 @@ struct ProfileView: View {
                                 Text(authViewModel.currentUser?.username ?? "User Profile")
                                     .font(.title2)
                                     .fontWeight(.bold)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(listViewModel.themeText)
                                 
                                 Text(authViewModel.currentUser?.email ?? "email@example.com")
                                     .font(.subheadline)
@@ -52,7 +52,7 @@ struct ProfileView: View {
                                     Text("\(myListings.count)")
                                         .font(.title3)
                                         .fontWeight(.bold)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(listViewModel.themeText)
                                     Text("My Nests")
                                         .font(.caption2)
                                         .foregroundColor(.gray)
@@ -62,7 +62,7 @@ struct ProfileView: View {
                                     Text("\(listViewModel.listings.count)")
                                         .font(.title3)
                                         .fontWeight(.bold)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(listViewModel.themeText)
                                     Text("Total Stays")
                                         .font(.caption2)
                                         .foregroundColor(.gray)
@@ -72,11 +72,11 @@ struct ProfileView: View {
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 24)
-                        .background(Color.white.opacity(0.02))
+                        .background(listViewModel.themeCardBg)
                         .cornerRadius(24)
                         .overlay(
                             RoundedRectangle(cornerRadius: 24)
-                                .stroke(Color.white.opacity(0.04), lineWidth: 1)
+                                .stroke(listViewModel.themeBorder, lineWidth: 1)
                         )
                         .padding(.horizontal)
                         
@@ -84,7 +84,7 @@ struct ProfileView: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Trips & Bookings")
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(listViewModel.themeText)
                                 .padding(.horizontal)
                             
                             NavigationLink(destination: BookingHistoryView().environmentObject(listViewModel)) {
@@ -103,7 +103,7 @@ struct ProfileView: View {
                                         Text("Booking History")
                                             .font(.subheadline)
                                             .fontWeight(.bold)
-                                            .foregroundColor(.white)
+                                            .foregroundColor(listViewModel.themeText)
                                         
                                         Text("\(listViewModel.bookings.count) stay reservations")
                                             .font(.caption2)
@@ -117,22 +117,69 @@ struct ProfileView: View {
                                         .foregroundColor(.gray)
                                 }
                                 .padding(12)
-                                .background(Color.white.opacity(0.02))
+                                .background(listViewModel.themeCardBg)
                                 .cornerRadius(16)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 16)
-                                        .stroke(Color.white.opacity(0.04), lineWidth: 1)
+                                        .stroke(listViewModel.themeBorder, lineWidth: 1)
                                 )
                                 .padding(.horizontal)
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
                         
+                        // App Settings / Theme Preferences Section
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Preferences")
+                                .font(.headline)
+                                .foregroundColor(listViewModel.themeText)
+                                .padding(.horizontal)
+                            
+                            VStack(spacing: 0) {
+                                Toggle(isOn: Binding(
+                                    get: { listViewModel.isDarkMode },
+                                    set: { _ in listViewModel.toggleTheme() }
+                                )) {
+                                    HStack(spacing: 16) {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .fill(LinearGradient(colors: [.purple, .indigo], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                                .frame(width: 46, height: 46)
+                                            
+                                            Image(systemName: listViewModel.isDarkMode ? "moon.stars.fill" : "sun.max.fill")
+                                                .foregroundColor(.white)
+                                                .font(.title3)
+                                        }
+                                        
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text("Appearance")
+                                                .font(.subheadline)
+                                                .fontWeight(.bold)
+                                                .foregroundColor(listViewModel.themeText)
+                                            
+                                            Text(listViewModel.isDarkMode ? "Dark Theme Active" : "Light Theme Active")
+                                                .font(.caption2)
+                                                .foregroundColor(.gray)
+                                        }
+                                    }
+                                }
+                                .padding(12)
+                                .tint(.blue)
+                            }
+                            .background(listViewModel.themeCardBg)
+                            .cornerRadius(16)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(listViewModel.themeBorder, lineWidth: 1)
+                            )
+                            .padding(.horizontal)
+                        }
+                        
                         // User's Own Listings section
                         VStack(alignment: .leading, spacing: 14) {
                             Text("My Listed Nests")
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(listViewModel.themeText)
                                 .padding(.horizontal)
                             
                             if myListings.isEmpty {
@@ -147,7 +194,7 @@ struct ProfileView: View {
                                 }
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 40)
-                                .background(Color.white.opacity(0.01))
+                                .background(listViewModel.themeCardBg)
                                 .cornerRadius(16)
                                 .padding(.horizontal)
                             } else {
@@ -171,7 +218,7 @@ struct ProfileView: View {
                                                     Text(listing.title)
                                                         .font(.subheadline)
                                                         .fontWeight(.bold)
-                                                        .foregroundColor(.white)
+                                                        .foregroundColor(listViewModel.themeText)
                                                         .lineLimit(1)
                                                     
                                                     Text("\(listing.location), \(listing.country)")
@@ -191,11 +238,11 @@ struct ProfileView: View {
                                                     .foregroundColor(.gray)
                                             }
                                             .padding(10)
-                                            .background(Color.white.opacity(0.02))
+                                            .background(listViewModel.themeCardBg)
                                             .cornerRadius(16)
                                             .overlay(
                                                 RoundedRectangle(cornerRadius: 16)
-                                                    .stroke(Color.white.opacity(0.04), lineWidth: 1)
+                                                    .stroke(listViewModel.themeBorder, lineWidth: 1)
                                             )
                                         }
                                         .buttonStyle(PlainButtonStyle())
