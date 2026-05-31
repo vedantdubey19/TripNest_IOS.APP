@@ -392,6 +392,9 @@ def main():
 				ENABLE_DEBUG_DYLIB = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_NSAppTransportSecurity[NSAllowsArbitraryLoads]" = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Verify your identity to authenticate secure stay bookings with Apple Pay.";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -417,6 +420,9 @@ def main():
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_NSAppTransportSecurity[NSAllowsArbitraryLoads]" = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Verify your identity to authenticate secure stay bookings with Apple Pay.";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (

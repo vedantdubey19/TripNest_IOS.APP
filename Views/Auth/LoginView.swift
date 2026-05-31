@@ -150,6 +150,31 @@ struct LoginView: View {
                             .disabled(!isInputValid || authViewModel.isLoading)
                             .scaleEffect(isInputValid ? 1.0 : 0.98)
                             .animation(.easeOut(duration: 0.2), value: isInputValid)
+                            
+                            // Quick Sign Up Button (For testing and rapid account creation)
+                            Button(action: {
+                                Task {
+                                    let randId = Int.random(in: 100...999)
+                                    let randUsername = "Explorer_\(randId)"
+                                    let randEmail = "explorer\(randId)@tripnest.com"
+                                    await authViewModel.register(username: randUsername, email: randEmail, password: "password123")
+                                }
+                            }) {
+                                HStack {
+                                    Text("Quick Sign Up (New User)")
+                                        .fontWeight(.semibold)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.white.opacity(0.08))
+                                .foregroundColor(.blue)
+                                .cornerRadius(12)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.blue.opacity(0.3), lineWidth: 1)
+                                )
+                            }
+                            .disabled(authViewModel.isLoading)
                         }
                         .padding(24)
                         .background(Color.white.opacity(0.04))

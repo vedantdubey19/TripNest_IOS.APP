@@ -14,6 +14,7 @@ public struct Booking: Codable, Identifiable, Hashable {
     public let currency: String
     public let currencyIcon: String
     public let bookingDate: Date
+    public let paymentMethod: String?
     
     public init(
         id: String = UUID().uuidString,
@@ -27,7 +28,8 @@ public struct Booking: Codable, Identifiable, Hashable {
         totalPrice: Double,
         currency: String,
         currencyIcon: String,
-        bookingDate: Date = Date()
+        bookingDate: Date = Date(),
+        paymentMethod: String? = "Credit Card"
     ) {
         self.id = id
         self.listingId = listingId
@@ -41,5 +43,6 @@ public struct Booking: Codable, Identifiable, Hashable {
         self.currency = currency
         self.currencyIcon = currencyIcon
         self.bookingDate = bookingDate
+        self.paymentMethod = paymentMethod
     }
 }

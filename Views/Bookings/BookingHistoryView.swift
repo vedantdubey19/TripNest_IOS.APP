@@ -102,6 +102,30 @@ struct BookingHistoryView: View {
                                     
                                     Spacer()
                                     
+                                    // Paid Via Row
+                                    let payMethod = booking.paymentMethod ?? "Credit Card"
+                                    let iconName: String = {
+                                        if payMethod == "Apple Pay" { return "apple.logo" }
+                                        if payMethod == "PayPal" { return "p.circle.fill" }
+                                        return "creditcard.fill"
+                                    }()
+                                    
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text("PAID VIA")
+                                            .font(.system(size: 8, weight: .semibold))
+                                            .foregroundColor(.gray)
+                                        HStack(spacing: 4) {
+                                            Image(systemName: iconName)
+                                                .font(.caption2)
+                                                .foregroundColor(.blue)
+                                            Text(payMethod)
+                                                .font(.system(size: 10, weight: .bold))
+                                                .foregroundColor(.gray)
+                                        }
+                                    }
+                                    
+                                    Spacer()
+                                    
                                     HStack(alignment: .bottom, spacing: 2) {
                                         Text("Total Paid:")
                                             .font(.caption)

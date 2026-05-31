@@ -99,7 +99,7 @@ final class ListingListViewModel: ObservableObject {
     
     // MARK: - Bookings Management
     
-    func addBooking(listing: Listing, checkIn: Date, checkOut: Date, totalPrice: Double, currency: String, currencyIcon: String) {
+    func addBooking(listing: Listing, checkIn: Date, checkOut: Date, totalPrice: Double, currency: String, currencyIcon: String, paymentMethod: String) {
         let booking = Booking(
             listingId: listing.id,
             listingTitle: listing.title,
@@ -110,7 +110,8 @@ final class ListingListViewModel: ObservableObject {
             checkOutDate: checkOut,
             totalPrice: totalPrice,
             currency: currency,
-            currencyIcon: currencyIcon
+            currencyIcon: currencyIcon,
+            paymentMethod: paymentMethod
         )
         LocalStoreManager.shared.addBooking(booking)
         self.bookings = LocalStoreManager.shared.getBookings()

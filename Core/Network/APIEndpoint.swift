@@ -27,7 +27,7 @@ enum APIEndpoint {
     
     /// The default base URL string for the backend.
     /// Update this value if your local server uses a different port or if deploying to staging/production.
-    static var baseURLString: String = "http://localhost:3000/api"
+    static var baseURLString: String = "http://192.168.1.9:3000/api"
     
     /// Path suffix for each endpoint
     var path: String {
