@@ -80,6 +80,54 @@ struct ProfileView: View {
                         )
                         .padding(.horizontal)
                         
+                        // Trips & Bookings Section
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Trips & Bookings")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding(.horizontal)
+                            
+                            NavigationLink(destination: BookingHistoryView().environmentObject(listViewModel)) {
+                                HStack(spacing: 16) {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .fill(LinearGradient(colors: [.blue, .indigo], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                            .frame(width: 46, height: 46)
+                                        
+                                        Image(systemName: "suitcase.rolling.fill")
+                                            .foregroundColor(.white)
+                                            .font(.title3)
+                                    }
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Booking History")
+                                            .font(.subheadline)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.white)
+                                        
+                                        Text("\(listViewModel.bookings.count) stay reservations")
+                                            .font(.caption2)
+                                            .foregroundColor(.gray)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                }
+                                .padding(12)
+                                .background(Color.white.opacity(0.02))
+                                .cornerRadius(16)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(Color.white.opacity(0.04), lineWidth: 1)
+                                )
+                                .padding(.horizontal)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                        
                         // User's Own Listings section
                         VStack(alignment: .leading, spacing: 14) {
                             Text("My Listed Nests")

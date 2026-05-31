@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-/// ListingListViewModel manages the state for browsing travel listings.
+/// ListingListViewModel manages the state for browsing travel listings, wishlists, and user bookings.
 @MainActor
 final class ListingListViewModel: ObservableObject {
     @Published var listings: [Listing] = []
@@ -13,6 +13,10 @@ final class ListingListViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var selectedCategory: String = "All"
     
+    // Starred Favorites & Bookings State
+    @Published var starredListingIds: Set<String> = []
+    @Published var bookings: [Booking] = []
+    
     /// Categories presented in the top scroll view filter.
     let categories = ["All", "Stays", "Beachfront", "Mountain", "Trending", "Cabins"]
     
@@ -20,6 +24,13 @@ final class ListingListViewModel: ObservableObject {
     
     init(listingRepository: ListingRepositoryProtocol = ListingRepository()) {
         self.listingRepository = listingRepository
+        loadLocalData()
+    }
+    
+    /// Loads user preferences and reservation history from LocalStoreManager
+    func loadLocalData() {
+        self.starredListingIds = LocalStoreManager.shared.getFavorites()
+        self.bookings = LocalStoreManager.shared.getBookings()
     }
     
     /// Fetches all listings from the repository.
@@ -36,6 +47,47 @@ final class ListingListViewModel: ObservableObject {
         
         isLoading = false
     }
+    
+    // MARK: - Favorites Management
+    
+    func isFavorite(listingId: String) -> Bool {
+        starredListingIds.contains(listingId)
+    }
+    
+    func toggleFavorite(listingId: String) {
+        if starredListingIds.contains(listingId) {
+            starredListingIds.remove(listingId)
+        } else {
+            starredListingIds.insert(listingId)
+        }
+        LocalStoreManager.shared.saveFavorites(starredListingIds)
+    }
+    
+    /// Retrieves listings that have been starred by the user
+    var starredListings: [Listing] {
+        listings.filter { starredListingIds.contains($0.id) }
+    }
+    
+    // MARK: - Bookings Management
+    
+    func addBooking(listing: Listing, checkIn: Date, checkOut: Date, totalPrice: Double, currency: String, currencyIcon: String) {
+        let booking = Booking(
+            listingId: listing.id,
+            listingTitle: listing.title,
+            listingImageURL: listing.image.url,
+            location: listing.location,
+            country: listing.country,
+            checkInDate: checkIn,
+            checkOutDate: checkOut,
+            totalPrice: totalPrice,
+            currency: currency,
+            currencyIcon: currencyIcon
+        )
+        LocalStoreManager.shared.addBooking(booking)
+        self.bookings = LocalStoreManager.shared.getBookings()
+    }
+    
+    // MARK: - Filtering Logic
     
     /// Filtered list based on search term and selected category tag.
     var filteredListings: [Listing] {

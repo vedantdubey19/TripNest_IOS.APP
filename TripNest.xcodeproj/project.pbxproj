@@ -13,8 +13,10 @@
 		A8C4CE07874442766B18D19C /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B55D337E7D75D3BAF36C46E /* APIEndpoint.swift */; };
 		D7982D019F65D0B246E24AE7 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D10EBE10E24F244B7B50D1 /* NetworkError.swift */; };
 		A0157669FA55BFD60A3446C9 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58444CD28B19ED6707B2533A /* KeychainManager.swift */; };
+		B338CB1DE785EAE5BB83066E /* LocalStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020CCE952C70790901EF448 /* LocalStoreManager.swift */; };
 		59FB540B5E70B39A8C41AF34 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CA93D3F11D595482EDAC06 /* ViewExtensions.swift */; };
 		22B23E0A7561AA516FE698F5 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5A303BFD724A5DAEEBBF /* AuthResponse.swift */; };
+		99994821FB2837C63EB15E57 /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8202B548C9AFF10A683155C1 /* Booking.swift */; };
 		ADD97F67F72E404218E4CB54 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7489B54CF719B618727812C2 /* Listing.swift */; };
 		68FB4556F13940AD4AB4FEF3 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBE46B5964E17958AC8099 /* Review.swift */; };
 		E4CA63EB333C07E3BE27F844 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C283DEC353FE809EF84BE9C /* User.swift */; };
@@ -29,6 +31,8 @@
 		0193B9EE49FB52E22B936C5C /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E178720E7BA7A3C831DF74F4 /* ReviewViewModel.swift */; };
 		C4C26A061761CB65426FDA9B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABAE2A7546F0538E6330AD9 /* LoginView.swift */; };
 		2D2E1A3B56F7AE0C4FD30F84 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB665A7892A687556AB169 /* RegisterView.swift */; };
+		B913F6CAF0D9505B1AEA4058 /* BookingHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4399A3CE1BD444E914A4C79C /* BookingHistoryView.swift */; };
+		3A61BE8FC8A3A5BB33584963 /* BookingSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E0C39F406914F50F321C9 /* BookingSheetView.swift */; };
 		4E9EF7821D693D7A0EE002A1 /* CreateListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18AF79E954F82B39EC41BEA /* CreateListingView.swift */; };
 		08063A87DA2581A56B2B4CA5 /* ImageCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBB022B49221A982A0A27FE /* ImageCarouselView.swift */; };
 		A51FC03998D5E3591CA0E981 /* ListingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D34AFA82B3B4027A8E3C23 /* ListingDetailView.swift */; };
@@ -37,6 +41,7 @@
 		12A41568476E88EB98DEF01E /* ListingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463BC64851566FC70D2933F /* ListingCardView.swift */; };
 		A10564B70A1D8ED407D46EBA /* ListingsMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD2F00A3A7B9D25B11C8372 /* ListingsMapView.swift */; };
 		FA46E6618C0B76BDCAC563DB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5282AA7022566D3F03F36D /* ProfileView.swift */; };
+		FBAAF5DC9150E6194B268560 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112F95E68EE7932983FF7B1F /* FavoritesView.swift */; };
 		DF798B8E2C8D40578AFEB040 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF798B8D2C8D40578AFEB040 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -47,8 +52,10 @@
 		3B55D337E7D75D3BAF36C46E /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "APIEndpoint.swift"; path = "Core/Network/APIEndpoint.swift"; sourceTree = "SOURCE_ROOT"; };
 		02D10EBE10E24F244B7B50D1 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NetworkError.swift"; path = "Core/Network/NetworkError.swift"; sourceTree = "SOURCE_ROOT"; };
 		58444CD28B19ED6707B2533A /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KeychainManager.swift"; path = "Core/Storage/KeychainManager.swift"; sourceTree = "SOURCE_ROOT"; };
+		8020CCE952C70790901EF448 /* LocalStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "LocalStoreManager.swift"; path = "Core/Storage/LocalStoreManager.swift"; sourceTree = "SOURCE_ROOT"; };
 		F2CA93D3F11D595482EDAC06 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ViewExtensions.swift"; path = "Core/ViewExtensions.swift"; sourceTree = "SOURCE_ROOT"; };
 		3A2B5A303BFD724A5DAEEBBF /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AuthResponse.swift"; path = "Models/AuthResponse.swift"; sourceTree = "SOURCE_ROOT"; };
+		8202B548C9AFF10A683155C1 /* Booking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Booking.swift"; path = "Models/Booking.swift"; sourceTree = "SOURCE_ROOT"; };
 		7489B54CF719B618727812C2 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Listing.swift"; path = "Models/Listing.swift"; sourceTree = "SOURCE_ROOT"; };
 		5EBBE46B5964E17958AC8099 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Review.swift"; path = "Models/Review.swift"; sourceTree = "SOURCE_ROOT"; };
 		8C283DEC353FE809EF84BE9C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "User.swift"; path = "Models/User.swift"; sourceTree = "SOURCE_ROOT"; };
@@ -63,6 +70,8 @@
 		E178720E7BA7A3C831DF74F4 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ReviewViewModel.swift"; path = "ViewModels/ReviewViewModel.swift"; sourceTree = "SOURCE_ROOT"; };
 		3ABAE2A7546F0538E6330AD9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "LoginView.swift"; path = "Views/Auth/LoginView.swift"; sourceTree = "SOURCE_ROOT"; };
 		B5AB665A7892A687556AB169 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RegisterView.swift"; path = "Views/Auth/RegisterView.swift"; sourceTree = "SOURCE_ROOT"; };
+		4399A3CE1BD444E914A4C79C /* BookingHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "BookingHistoryView.swift"; path = "Views/Bookings/BookingHistoryView.swift"; sourceTree = "SOURCE_ROOT"; };
+		084E0C39F406914F50F321C9 /* BookingSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "BookingSheetView.swift"; path = "Views/Bookings/BookingSheetView.swift"; sourceTree = "SOURCE_ROOT"; };
 		D18AF79E954F82B39EC41BEA /* CreateListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CreateListingView.swift"; path = "Views/Create/CreateListingView.swift"; sourceTree = "SOURCE_ROOT"; };
 		EFBB022B49221A982A0A27FE /* ImageCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ImageCarouselView.swift"; path = "Views/Detail/ImageCarouselView.swift"; sourceTree = "SOURCE_ROOT"; };
 		99D34AFA82B3B4027A8E3C23 /* ListingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ListingDetailView.swift"; path = "Views/Detail/ListingDetailView.swift"; sourceTree = "SOURCE_ROOT"; };
@@ -71,6 +80,7 @@
 		C463BC64851566FC70D2933F /* ListingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ListingCardView.swift"; path = "Views/Home/ListingCardView.swift"; sourceTree = "SOURCE_ROOT"; };
 		1AD2F00A3A7B9D25B11C8372 /* ListingsMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ListingsMapView.swift"; path = "Views/Map/ListingsMapView.swift"; sourceTree = "SOURCE_ROOT"; };
 		1D5282AA7022566D3F03F36D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProfileView.swift"; path = "Views/Profile/ProfileView.swift"; sourceTree = "SOURCE_ROOT"; };
+		112F95E68EE7932983FF7B1F /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FavoritesView.swift"; path = "Views/Starred/FavoritesView.swift"; sourceTree = "SOURCE_ROOT"; };
 		DF798B8D2C8D40578AFEB040 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Assets.xcassets"; path = "App/Assets.xcassets"; sourceTree = "SOURCE_ROOT"; };
 		DF798B7C2C8D40578AFEB040 /* TripNest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripNest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -138,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				58444CD28B19ED6707B2533A /* KeychainManager.swift */,
+				8020CCE952C70790901EF448 /* LocalStoreManager.swift */,
 			);
 			name = "Storage";
 			path = "Storage";
@@ -147,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				3A2B5A303BFD724A5DAEEBBF /* AuthResponse.swift */,
+				8202B548C9AFF10A683155C1 /* Booking.swift */,
 				7489B54CF719B618727812C2 /* Listing.swift */,
 				5EBBE46B5964E17958AC8099 /* Review.swift */,
 				8C283DEC353FE809EF84BE9C /* User.swift */,
@@ -184,11 +196,13 @@
 			isa = PBXGroup;
 			children = (
 				9D5BF84D86FEA5BF6411C8BC /* Auth */,
+				1A8D39B30D55D87C18C4159B /* Bookings */,
 				4393B002CE93DF4309D33FE8 /* Create */,
 				36BB98859C1F5F883F17E121 /* Detail */,
 				72B0BCE8D6E183724C8E069C /* Home */,
 				999AE51772A65CC436FDF7DD /* Map */,
 				67AB0CE9DE114D3587151631 /* Profile */,
+				A53A0C57DCB76FC180580EEA /* Starred */,
 			);
 			name = "Views";
 			path = "Views";
@@ -202,6 +216,16 @@
 			);
 			name = "Auth";
 			path = "Auth";
+			sourceTree = "<group>";
+		};
+		1A8D39B30D55D87C18C4159B /* Bookings */ = {
+			isa = PBXGroup;
+			children = (
+				4399A3CE1BD444E914A4C79C /* BookingHistoryView.swift */,
+				084E0C39F406914F50F321C9 /* BookingSheetView.swift */,
+			);
+			name = "Bookings";
+			path = "Bookings";
 			sourceTree = "<group>";
 		};
 		4393B002CE93DF4309D33FE8 /* Create */ = {
@@ -250,6 +274,15 @@
 			);
 			name = "Profile";
 			path = "Profile";
+			sourceTree = "<group>";
+		};
+		A53A0C57DCB76FC180580EEA /* Starred */ = {
+			isa = PBXGroup;
+			children = (
+				112F95E68EE7932983FF7B1F /* FavoritesView.swift */,
+			);
+			name = "Starred";
+			path = "Starred";
 			sourceTree = "<group>";
 		};
 		DF798B7B2C8D40578AFEB040 /* Products */ = {
@@ -334,8 +367,10 @@
 				A8C4CE07874442766B18D19C /* APIEndpoint.swift in Sources */,
 				D7982D019F65D0B246E24AE7 /* NetworkError.swift in Sources */,
 				A0157669FA55BFD60A3446C9 /* KeychainManager.swift in Sources */,
+				B338CB1DE785EAE5BB83066E /* LocalStoreManager.swift in Sources */,
 				59FB540B5E70B39A8C41AF34 /* ViewExtensions.swift in Sources */,
 				22B23E0A7561AA516FE698F5 /* AuthResponse.swift in Sources */,
+				99994821FB2837C63EB15E57 /* Booking.swift in Sources */,
 				ADD97F67F72E404218E4CB54 /* Listing.swift in Sources */,
 				68FB4556F13940AD4AB4FEF3 /* Review.swift in Sources */,
 				E4CA63EB333C07E3BE27F844 /* User.swift in Sources */,
@@ -350,6 +385,8 @@
 				0193B9EE49FB52E22B936C5C /* ReviewViewModel.swift in Sources */,
 				C4C26A061761CB65426FDA9B /* LoginView.swift in Sources */,
 				2D2E1A3B56F7AE0C4FD30F84 /* RegisterView.swift in Sources */,
+				B913F6CAF0D9505B1AEA4058 /* BookingHistoryView.swift in Sources */,
+				3A61BE8FC8A3A5BB33584963 /* BookingSheetView.swift in Sources */,
 				4E9EF7821D693D7A0EE002A1 /* CreateListingView.swift in Sources */,
 				08063A87DA2581A56B2B4CA5 /* ImageCarouselView.swift in Sources */,
 				A51FC03998D5E3591CA0E981 /* ListingDetailView.swift in Sources */,
@@ -358,6 +395,7 @@
 				12A41568476E88EB98DEF01E /* ListingCardView.swift in Sources */,
 				A10564B70A1D8ED407D46EBA /* ListingsMapView.swift in Sources */,
 				FA46E6618C0B76BDCAC563DB /* ProfileView.swift in Sources */,
+				FBAAF5DC9150E6194B268560 /* FavoritesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

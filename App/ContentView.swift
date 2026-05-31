@@ -6,18 +6,21 @@ public struct ContentView: View {
     // ViewModels to share across views
     @StateObject private var listViewModel = ListingListViewModel()
     
+    @State private var selectedTab = 0
+    
     public init() {}
     
     public var body: some View {
         Group {
             if authViewModel.isAuthenticated {
-                TabView {
+                TabView(selection: $selectedTab) {
                     // Explore Tab
-                    HomeView()
+                    HomeView(selectedTab: $selectedTab)
                         .environmentObject(listViewModel)
                         .tabItem {
                             Label("Explore", systemImage: "safari.fill")
                         }
+                        .tag(0)
                     
                     // Map Tab
                     ListingsMapView()
@@ -25,6 +28,15 @@ public struct ContentView: View {
                         .tabItem {
                             Label("Map", systemImage: "map.fill")
                         }
+                        .tag(1)
+                    
+                    // Starred Tab
+                    FavoritesView()
+                        .environmentObject(listViewModel)
+                        .tabItem {
+                            Label("Starred", systemImage: "star.fill")
+                        }
+                        .tag(2)
                     
                     // Profile Tab
                     ProfileView()
@@ -32,6 +44,7 @@ public struct ContentView: View {
                         .tabItem {
                             Label("Profile", systemImage: "person.crop.circle.fill")
                         }
+                        .tag(3)
                 }
                 .tint(.blue) // Premium navigation tint
                 .onAppear {

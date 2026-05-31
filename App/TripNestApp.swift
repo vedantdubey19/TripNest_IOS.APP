@@ -1,5 +1,7 @@
 import SwiftUI
+#if canImport(TripNestLib)
 import TripNestLib
+#endif
 
 @main
 struct TripNestApp: App {

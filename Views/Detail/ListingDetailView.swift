@@ -5,11 +5,14 @@ struct ListingDetailView: View {
     let listingId: String
     
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var listViewModel: ListingListViewModel
+    
     @StateObject private var detailViewModel = ListingDetailViewModel()
     @StateObject private var reviewViewModel = ReviewViewModel()
     
     @Environment(\.dismiss) var dismiss
     @State private var showEditSheet = false
+    @State private var showBookingSheet = false
     @State private var coordinate: CLLocationCoordinate2D? = nil
     
     // For Map camera control
@@ -31,214 +34,261 @@ struct ListingDetailView: View {
                 ProgressView("Fetching listing profile...")
                     .tint(.blue)
             } else if let listing = detailViewModel.listing {
-                ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 20) {
-                        // Image Carousel Header
-                        ImageCarouselView(imageUrls: [listing.image.url])
-                            .frame(height: 320)
-                            .ignoresSafeArea(edges: .top)
-                        
+                VStack(spacing: 0) {
+                    ScrollView(showsIndicators: false) {
                         VStack(alignment: .leading, spacing: 20) {
-                            // Title & Host section
-                            VStack(alignment: .leading, spacing: 6) {
-                                HStack {
-                                    Text("\(listing.location), \(listing.country)")
-                                        .font(.subheadline)
+                            // Image Carousel Header
+                            ImageCarouselView(imageUrls: [listing.image.url])
+                                .frame(height: 320)
+                                .ignoresSafeArea(edges: .top)
+                            
+                            VStack(alignment: .leading, spacing: 20) {
+                                // Title & Host section
+                                VStack(alignment: .leading, spacing: 6) {
+                                    HStack {
+                                        Text("\(listing.location), \(listing.country)")
+                                            .font(.subheadline)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.blue)
+                                        
+                                        Spacer()
+                                        
+                                        // Price Info
+                                        Text(String(format: "$%.0f", listing.price))
+                                            .font(.title2)
+                                            .fontWeight(.black)
+                                            .foregroundColor(.white)
+                                        Text("/ night")
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                    }
+                                    
+                                    Text(listing.title)
+                                        .font(.title)
                                         .fontWeight(.bold)
-                                        .foregroundColor(.blue)
-                                    
-                                    Spacer()
-                                    
-                                    // Price Info
-                                    Text(String(format: "$%.0f", listing.price))
-                                        .font(.title2)
-                                        .fontWeight(.black)
                                         .foregroundColor(.white)
-                                    Text("/ night")
-                                        .font(.caption)
+                                    
+                                    Text("Hosted by \(listing.owner.username)")
+                                        .font(.footnote)
                                         .foregroundColor(.gray)
+                                        .padding(.top, 2)
                                 }
                                 
-                                Text(listing.title)
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
+                                Divider()
+                                    .background(Color.white.opacity(0.1))
                                 
-                                Text("Hosted by \(listing.owner.username)")
-                                    .font(.footnote)
-                                    .foregroundColor(.gray)
-                                    .padding(.top, 2)
-                            }
-                            
-                            Divider()
-                                .background(Color.white.opacity(0.1))
-                            
-                            // Description Segment
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("About this space")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
+                                // Description Segment
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("About this space")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                    
+                                    Text(listing.description)
+                                        .font(.body)
+                                        .foregroundColor(.gray)
+                                        .lineSpacing(4)
+                                }
                                 
-                                Text(listing.description)
-                                    .font(.body)
-                                    .foregroundColor(.gray)
-                                    .lineSpacing(4)
-                            }
-                            
-                            Divider()
-                                .background(Color.white.opacity(0.1))
-                            
-                            // Map Preview Section
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("Where you'll be")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
+                                Divider()
+                                    .background(Color.white.opacity(0.1))
                                 
-                                if let coord = coordinate {
-                                    Map(position: $cameraPosition) {
-                                        Marker(listing.location, coordinate: coord)
-                                            .tint(.blue)
+                                // Map Preview Section
+                                VStack(alignment: .leading, spacing: 12) {
+                                    Text("Where you'll be")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                    
+                                    if let coord = coordinate {
+                                        Map(position: $cameraPosition) {
+                                            Marker(listing.location, coordinate: coord)
+                                                .tint(.blue)
+                                        }
+                                        .frame(height: 180)
+                                        .cornerRadius(16)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 16)
+                                                .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                                        )
+                                    } else {
+                                        HStack {
+                                            Spacer()
+                                            VStack(spacing: 8) {
+                                                ProgressView()
+                                                    .tint(.white)
+                                                Text("Resolving coordinate location...")
+                                                    .font(.caption)
+                                                    .foregroundColor(.gray)
+                                            }
+                                            Spacer()
+                                        }
+                                        .frame(height: 180)
+                                        .background(Color.white.opacity(0.02))
+                                        .cornerRadius(16)
                                     }
-                                    .frame(height: 180)
+                                }
+                                .onAppear {
+                                    geocodeLocation(address: listing.fullAddress)
+                                }
+                                
+                                Divider()
+                                    .background(Color.white.opacity(0.1))
+                                
+                                // Add Review Form
+                                VStack(alignment: .leading, spacing: 12) {
+                                    Text("Leave a Review")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                    
+                                    VStack(spacing: 12) {
+                                        // Interactive Stars selector
+                                        HStack {
+                                            Text("Rating:")
+                                                .font(.subheadline)
+                                                .foregroundColor(.gray)
+                                            
+                                            Spacer()
+                                            
+                                            HStack(spacing: 6) {
+                                                ForEach(1...5, id: \.self) { star in
+                                                    Button(action: { reviewViewModel.rating = star }) {
+                                                        Image(systemName: star <= reviewViewModel.rating ? "star.fill" : "star")
+                                                            .font(.title3)
+                                                            .foregroundColor(star <= reviewViewModel.rating ? .yellow : .gray.opacity(0.4))
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        
+                                        // Review input text
+                                        TextField("Write your review comment...", text: $reviewViewModel.comment, axis: .vertical)
+                                            .lineLimit(3...5)
+                                            .padding()
+                                            .foregroundColor(.white)
+                                            .background(Color.white.opacity(0.04))
+                                            .cornerRadius(12)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 12)
+                                                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                                            )
+                                        
+                                        // Submit Button
+                                        Button(action: {
+                                            Task {
+                                                if let updated = await reviewViewModel.submitReview(listingId: listing.id) {
+                                                    detailViewModel.listing = updated
+                                                }
+                                            }
+                                        }) {
+                                            HStack {
+                                                if reviewViewModel.isLoading {
+                                                    ProgressView()
+                                                        .tint(.white)
+                                                        .padding(.trailing, 8)
+                                                }
+                                                Text("Submit Review")
+                                                    .fontWeight(.bold)
+                                            }
+                                            .frame(maxWidth: .infinity)
+                                            .padding()
+                                            .background(
+                                                reviewViewModel.isReviewValid ?
+                                                LinearGradient(colors: [.blue, .indigo], startPoint: .leading, endPoint: .trailing) :
+                                                LinearGradient(colors: [.gray.opacity(0.2)], startPoint: .leading, endPoint: .trailing)
+                                            )
+                                            .foregroundColor(.white)
+                                            .cornerRadius(12)
+                                        }
+                                        .disabled(!reviewViewModel.isReviewValid || reviewViewModel.isLoading)
+                                    }
+                                    .padding(16)
+                                    .background(Color.white.opacity(0.02))
                                     .cornerRadius(16)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 16)
-                                            .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                                            .stroke(Color.white.opacity(0.04), lineWidth: 1)
                                     )
-                                } else {
-                                    HStack {
-                                        Spacer()
-                                        VStack(spacing: 8) {
-                                            ProgressView()
-                                                .tint(.white)
-                                            Text("Resolving coordinate location...")
-                                                .font(.caption)
-                                                .foregroundColor(.gray)
-                                        }
-                                        Spacer()
-                                    }
-                                    .frame(height: 180)
-                                    .background(Color.white.opacity(0.02))
-                                    .cornerRadius(16)
                                 }
-                            }
-                            .onAppear {
-                                geocodeLocation(address: listing.fullAddress)
-                            }
-                            
-                            Divider()
-                                .background(Color.white.opacity(0.1))
-                            
-                            // Add Review Form
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("Leave a Review")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
                                 
-                                VStack(spacing: 12) {
-                                    // Interactive Stars selector
-                                    HStack {
-                                        Text("Rating:")
+                                Divider()
+                                    .background(Color.white.opacity(0.1))
+                                
+                                // Listing Reviews List
+                                VStack(alignment: .leading, spacing: 14) {
+                                    Text("Reviews (\(listing.reviews.count))")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                    
+                                    if listing.reviews.isEmpty {
+                                        Text("No reviews yet. Be the first to share your experience!")
                                             .font(.subheadline)
                                             .foregroundColor(.gray)
-                                        
-                                        Spacer()
-                                        
-                                        HStack(spacing: 6) {
-                                            ForEach(1...5, id: \.self) { star in
-                                                Button(action: { reviewViewModel.rating = star }) {
-                                                    Image(systemName: star <= reviewViewModel.rating ? "star.fill" : "star")
-                                                        .font(.title3)
-                                                        .foregroundColor(star <= reviewViewModel.rating ? .yellow : .gray.opacity(0.4))
-                                                }
-                                            }
-                                        }
-                                    }
-                                    
-                                    // Review input text
-                                    TextField("Write your review comment...", text: $reviewViewModel.comment, axis: .vertical)
-                                        .lineLimit(3...5)
-                                        .padding()
-                                        .foregroundColor(.white)
-                                        .background(Color.white.opacity(0.04))
-                                        .cornerRadius(12)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .stroke(Color.white.opacity(0.08), lineWidth: 1)
-                                        )
-                                    
-                                    // Submit Button
-                                    Button(action: {
-                                        Task {
-                                            if let updated = await reviewViewModel.submitReview(listingId: listing.id) {
-                                                detailViewModel.listing = updated
-                                            }
-                                        }
-                                    }) {
-                                        HStack {
-                                            if reviewViewModel.isLoading {
-                                                ProgressView()
-                                                    .tint(.white)
-                                                    .padding(.trailing, 8)
-                                            }
-                                            Text("Submit Review")
-                                                .fontWeight(.bold)
-                                        }
-                                        .frame(maxWidth: .infinity)
-                                        .padding()
-                                        .background(
-                                            reviewViewModel.isReviewValid ?
-                                            LinearGradient(colors: [.blue, .indigo], startPoint: .leading, endPoint: .trailing) :
-                                            LinearGradient(colors: [.gray.opacity(0.2)], startPoint: .leading, endPoint: .trailing)
-                                        )
-                                        .foregroundColor(.white)
-                                        .cornerRadius(12)
-                                    }
-                                    .disabled(!reviewViewModel.isReviewValid || reviewViewModel.isLoading)
-                                }
-                                .padding(16)
-                                .background(Color.white.opacity(0.02))
-                                .cornerRadius(16)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 16)
-                                        .stroke(Color.white.opacity(0.04), lineWidth: 1)
-                                )
-                            }
-                            
-                            Divider()
-                                .background(Color.white.opacity(0.1))
-                            
-                            // Listing Reviews List
-                            VStack(alignment: .leading, spacing: 14) {
-                                Text("Reviews (\(listing.reviews.count))")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                
-                                if listing.reviews.isEmpty {
-                                    Text("No reviews yet. Be the first to share your experience!")
-                                        .font(.subheadline)
-                                        .foregroundColor(.gray)
-                                        .italic()
-                                        .padding(.vertical, 8)
-                                } else {
-                                    VStack(spacing: 12) {
-                                        ForEach(listing.reviews) { review in
-                                            ReviewRowView(
-                                                review: review,
-                                                currentUserId: authViewModel.currentUser?.id,
-                                                onDelete: {
-                                                    Task {
-                                                        await detailViewModel.deleteReview(reviewId: review.id)
+                                            .italic()
+                                            .padding(.vertical, 8)
+                                    } else {
+                                        VStack(spacing: 12) {
+                                            ForEach(listing.reviews) { review in
+                                                ReviewRowView(
+                                                    review: review,
+                                                    currentUserId: authViewModel.currentUser?.id,
+                                                    onDelete: {
+                                                        Task {
+                                                            await detailViewModel.deleteReview(reviewId: review.id)
+                                                        }
                                                     }
-                                                }
-                                            )
+                                                )
+                                            }
                                         }
                                     }
                                 }
+                                .padding(.bottom, 40)
                             }
-                            .padding(.bottom, 40)
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
+                    }
+                    
+                    // Floating Bottom Book Now bar (only if not listing owner)
+                    if !isOwner {
+                        VStack(spacing: 0) {
+                            Divider()
+                                .background(Color.white.opacity(0.08))
+                            
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Booking Option")
+                                        .font(.caption2)
+                                        .foregroundColor(.gray)
+                                    HStack(alignment: .bottom, spacing: 2) {
+                                        Text(String(format: "$%.0f", listing.price))
+                                            .font(.title2)
+                                            .fontWeight(.black)
+                                            .foregroundColor(.white)
+                                        Text("/ night")
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                            .padding(.bottom, 2)
+                                    }
+                                }
+                                
+                                Spacer()
+                                
+                                Button(action: { showBookingSheet = true }) {
+                                    Text("Book Stay")
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal, 28)
+                                        .padding(.vertical, 14)
+                                        .background(
+                                            LinearGradient(colors: [.blue, .indigo], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                        )
+                                        .cornerRadius(14)
+                                        .shadow(color: Color.blue.opacity(0.3), radius: 8, y: 4)
+                                }
+                            }
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 16)
+                            .background(Color(red: 0.05, green: 0.05, blue: 0.08))
+                        }
                     }
                 }
             } else {
@@ -255,22 +305,35 @@ struct ListingDetailView: View {
         .navigationBarTitleDisplayModeInline()
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                if isOwner {
-                    Menu {
-                        Button(action: { showEditSheet = true }) {
-                            Label("Edit Stay", systemImage: "pencil")
-                        }
-                        Button(role: .destructive, action: {
-                            Task {
-                                await detailViewModel.deleteListing()
-                            }
+                HStack(spacing: 16) {
+                    if let listing = detailViewModel.listing {
+                        // Star toggle button
+                        Button(action: {
+                            listViewModel.toggleFavorite(listingId: listing.id)
                         }) {
-                            Label("Delete Stay", systemImage: "trash")
+                            Image(systemName: listViewModel.isFavorite(listingId: listing.id) ? "star.fill" : "star")
+                                .font(.title3)
+                                .foregroundColor(listViewModel.isFavorite(listingId: listing.id) ? .yellow : .white)
                         }
-                    } label: {
-                        Image(systemName: "ellipsis.circle")
-                            .font(.title3)
-                            .foregroundColor(.white)
+                    }
+                    
+                    if isOwner {
+                        Menu {
+                            Button(action: { showEditSheet = true }) {
+                                Label("Edit Stay", systemImage: "pencil")
+                            }
+                            Button(role: .destructive, action: {
+                                Task {
+                                    await detailViewModel.deleteListing()
+                                }
+                            }) {
+                                Label("Delete Stay", systemImage: "trash")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis.circle")
+                                .font(.title3)
+                                .foregroundColor(.white)
+                        }
                     }
                 }
             }
@@ -283,6 +346,12 @@ struct ListingDetailView: View {
             if let listing = detailViewModel.listing {
                 CreateListingView(editingListing: listing)
                     .environmentObject(detailViewModel)
+            }
+        }
+        .sheet(isPresented: $showBookingSheet) {
+            if let listing = detailViewModel.listing {
+                BookingSheetView(listing: listing)
+                    .environmentObject(listViewModel)
             }
         }
         .onChange(of: detailViewModel.isDeleted) { _, deleted in
@@ -324,6 +393,7 @@ struct ListingDetailView: View {
     NavigationStack {
         ListingDetailView(listingId: "1")
             .environmentObject(AuthViewModel())
+            .environmentObject(ListingListViewModel())
     }
 }
 #endif

@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ListingCardView: View {
+    @EnvironmentObject var listViewModel: ListingListViewModel
     let listing: Listing
     
     // Computes average rating from reviews array
@@ -14,7 +15,7 @@ struct ListingCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             // Listing Image with AsyncImage
-            ZStack(alignment: .topTrailing) {
+            ZStack(alignment: .top) {
                 AsyncImage(url: URL(string: listing.image.url)) { phase in
                     switch phase {
                     case .empty:
@@ -43,20 +44,38 @@ struct ListingCardView: View {
                 .frame(height: 200)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 
-                // Rating Overlay Tag
-                HStack(spacing: 4) {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
-                        .font(.caption2)
-                    Text(averageRating)
-                        .font(.caption)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
+                // Top Overlays Row (Star on Left, Rating on Right)
+                HStack {
+                    // Quick Star/Favorite Toggle
+                    Button(action: {
+                        listViewModel.toggleFavorite(listingId: listing.id)
+                    }) {
+                        Image(systemName: listViewModel.isFavorite(listingId: listing.id) ? "star.fill" : "star")
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(listViewModel.isFavorite(listingId: listing.id) ? .yellow : .white)
+                            .padding(8)
+                            .background(.ultraThinMaterial)
+                            .clipShape(Circle())
+                    }
+                    .buttonStyle(BorderlessButtonStyle()) // Stop cell click navigation conflict
+                    
+                    Spacer()
+                    
+                    // Rating Overlay Tag
+                    HStack(spacing: 4) {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.yellow)
+                            .font(.caption2)
+                        Text(averageRating)
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
                 }
-                .padding(.horizontal, 10)
-                .padding(.vertical, 6)
-                .background(.ultraThinMaterial)
-                .cornerRadius(12)
                 .padding(10)
             }
             
@@ -110,7 +129,8 @@ struct ListingCardView: View {
 
 #if os(iOS)
 #Preview {
-    ListingCardView(
+    let mockListVM = ListingListViewModel()
+    return ListingCardView(
         listing: Listing(
             id: "1",
             title: "Charming Beachside Villa",
@@ -125,6 +145,7 @@ struct ListingCardView: View {
             ]
         )
     )
+    .environmentObject(mockListVM)
     .preferredColorScheme(.dark)
     .padding()
 }

@@ -2,7 +2,9 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var listViewModel: ListingListViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     
+    var selectedTab: Binding<Int>? = nil
     @State private var showCreateListingSheet = false
     
     // Grid configuration for iPhone layout (2 columns)
@@ -31,6 +33,29 @@ struct HomeView: View {
                         }
                         
                         Spacer()
+                        
+                        // Top Right User Profile Icon Shortcut
+                        Button(action: {
+                            withAnimation(.spring()) {
+                                selectedTab?.wrappedValue = 3 // Index 3 is ProfileView
+                            }
+                        }) {
+                            Circle()
+                                .fill(
+                                    LinearGradient(colors: [.blue, .indigo], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                )
+                                .frame(width: 42, height: 42)
+                                .overlay(
+                                    Text(String(authViewModel.currentUser?.username.prefix(1) ?? "U").uppercased())
+                                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                                        .foregroundColor(.white)
+                                )
+                                .overlay(
+                                    Circle()
+                                        .stroke(Color.white.opacity(0.15), lineWidth: 1.5)
+                                )
+                                .shadow(color: Color.blue.opacity(0.3), radius: 6, x: 0, y: 3)
+                        }
                     }
                     .padding(.horizontal)
                     .padding(.top, 16)
@@ -47,7 +72,7 @@ struct HomeView: View {
                             Button(action: { listViewModel.searchText = "" }) {
                                 Image(systemName: "xmark.circle.fill")
                                     .foregroundColor(.gray)
-                            }
+                              }
                         }
                     }
                     .padding(12)
@@ -197,8 +222,11 @@ struct HomeView: View {
             reviews: []
         )
     ]
+    let mockAuth = AuthViewModel()
+    mockAuth.currentUser = User(id: "101", username: "Host", email: "")
     return HomeView()
         .environmentObject(mockVM)
+        .environmentObject(mockAuth)
         .preferredColorScheme(.dark)
 }
 #endif
