@@ -14,9 +14,9 @@ struct ListingCardView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            // Listing Image with AsyncImage
+            // Listing Image with CachedAsyncImage
             ZStack(alignment: .top) {
-                AsyncImage(url: URL(string: listing.image.url)) { phase in
+                CachedAsyncImage(url: URL(string: listing.image.url)) { phase in
                     switch phase {
                     case .empty:
                         Rectangle()

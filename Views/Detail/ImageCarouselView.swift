@@ -10,7 +10,7 @@ struct ImageCarouselView: View {
             // TabView Page Style
             TabView(selection: $currentIndex) {
                 ForEach(0..<imageUrls.count, id: \.self) { index in
-                    AsyncImage(url: URL(string: imageUrls[index])) { phase in
+                    CachedAsyncImage(url: URL(string: imageUrls[index])) { phase in
                         switch phase {
                         case .empty:
                             Rectangle()

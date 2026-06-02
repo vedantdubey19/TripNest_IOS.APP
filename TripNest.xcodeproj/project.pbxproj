@@ -12,6 +12,7 @@
 		A83ACFE6A29E8F9C8ADA8BF2 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3278BEAC8A847B9BBC25C166 /* LocationManager.swift */; };
 		F7009A8AF3ECE62C36D62275 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6913B481B86BD08320723 /* APIClient.swift */; };
 		A8C4CE07874442766B18D19C /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B55D337E7D75D3BAF36C46E /* APIEndpoint.swift */; };
+		22BCC5B8AE153E4260A03D05 /* CachedAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CD53611256CFDE63A612D2 /* CachedAsyncImage.swift */; };
 		D7982D019F65D0B246E24AE7 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D10EBE10E24F244B7B50D1 /* NetworkError.swift */; };
 		A0157669FA55BFD60A3446C9 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58444CD28B19ED6707B2533A /* KeychainManager.swift */; };
 		B338CB1DE785EAE5BB83066E /* LocalStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020CCE952C70790901EF448 /* LocalStoreManager.swift */; };
@@ -52,6 +53,7 @@
 		3278BEAC8A847B9BBC25C166 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "LocationManager.swift"; path = "Core/Location/LocationManager.swift"; sourceTree = "SOURCE_ROOT"; };
 		47B6913B481B86BD08320723 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "APIClient.swift"; path = "Core/Network/APIClient.swift"; sourceTree = "SOURCE_ROOT"; };
 		3B55D337E7D75D3BAF36C46E /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "APIEndpoint.swift"; path = "Core/Network/APIEndpoint.swift"; sourceTree = "SOURCE_ROOT"; };
+		36CD53611256CFDE63A612D2 /* CachedAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CachedAsyncImage.swift"; path = "Core/Network/CachedAsyncImage.swift"; sourceTree = "SOURCE_ROOT"; };
 		02D10EBE10E24F244B7B50D1 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NetworkError.swift"; path = "Core/Network/NetworkError.swift"; sourceTree = "SOURCE_ROOT"; };
 		58444CD28B19ED6707B2533A /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KeychainManager.swift"; path = "Core/Storage/KeychainManager.swift"; sourceTree = "SOURCE_ROOT"; };
 		8020CCE952C70790901EF448 /* LocalStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "LocalStoreManager.swift"; path = "Core/Storage/LocalStoreManager.swift"; sourceTree = "SOURCE_ROOT"; };
@@ -150,6 +152,7 @@
 			children = (
 				47B6913B481B86BD08320723 /* APIClient.swift */,
 				3B55D337E7D75D3BAF36C46E /* APIEndpoint.swift */,
+				36CD53611256CFDE63A612D2 /* CachedAsyncImage.swift */,
 				02D10EBE10E24F244B7B50D1 /* NetworkError.swift */,
 			);
 			name = "Network";
@@ -378,6 +381,7 @@
 				A83ACFE6A29E8F9C8ADA8BF2 /* LocationManager.swift in Sources */,
 				F7009A8AF3ECE62C36D62275 /* APIClient.swift in Sources */,
 				A8C4CE07874442766B18D19C /* APIEndpoint.swift in Sources */,
+				22BCC5B8AE153E4260A03D05 /* CachedAsyncImage.swift in Sources */,
 				D7982D019F65D0B246E24AE7 /* NetworkError.swift in Sources */,
 				A0157669FA55BFD60A3446C9 /* KeychainManager.swift in Sources */,
 				B338CB1DE785EAE5BB83066E /* LocalStoreManager.swift in Sources */,

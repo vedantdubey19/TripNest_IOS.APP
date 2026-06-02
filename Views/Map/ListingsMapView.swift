@@ -21,6 +21,9 @@ struct ListingsMapView: View {
     
     private var pins: [ListingPin] {
         listViewModel.listings.compactMap { listing in
+            if let lat = listing.latitude, let lng = listing.longitude {
+                return ListingPin(id: listing.id, coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng), listing: listing)
+            }
             guard let coord = coordinateCache[listing.id] else { return nil }
             return ListingPin(id: listing.id, coordinate: coord, listing: listing)
         }
@@ -87,6 +90,18 @@ struct ListingsMapView: View {
             .task {
                 await listViewModel.fetchListings()
                 geocodeAllListings()
+                
+                // Centering fallback if user location is not available
+                if !hasCenteredOnUser, let firstListing = listViewModel.listings.first {
+                    if let lat = firstListing.latitude, let lng = firstListing.longitude {
+                        withAnimation {
+                            self.cameraPosition = .region(MKCoordinateRegion(
+                                center: CLLocationCoordinate2D(latitude: lat, longitude: lng),
+                                span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+                            ))
+                        }
+                    }
+                }
             }
             .onChange(of: listViewModel.listings) { _, newListings in
                 geocodeAllListings()
@@ -110,6 +125,8 @@ struct ListingsMapView: View {
         let geocoder = CLGeocoder()
         
         for listing in listViewModel.listings {
+            // Skip if it already has coordinates from server
+            if listing.latitude != nil && listing.longitude != nil { continue }
             // Skip if already in cache
             guard coordinateCache[listing.id] == nil else { continue }
             

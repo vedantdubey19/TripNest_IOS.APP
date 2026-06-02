@@ -12,6 +12,8 @@ struct Listing: Codable, Identifiable, Hashable {
     let image: ListingImage
     let owner: User
     let reviews: [Review]
+    let latitude: Double?
+    let longitude: Double?
     
     /// ListingImage models the image structure returned by Cloudinary (URL and ID/filename).
     struct ListingImage: Codable, Hashable {
@@ -29,9 +31,11 @@ struct Listing: Codable, Identifiable, Hashable {
         case image
         case owner
         case reviews
+        case latitude
+        case longitude
     }
     
-    init(id: String, title: String, description: String, price: Double, location: String, country: String, image: ListingImage, owner: User, reviews: [Review]) {
+    init(id: String, title: String, description: String, price: Double, location: String, country: String, image: ListingImage, owner: User, reviews: [Review], latitude: Double? = nil, longitude: Double? = nil) {
         self.id = id
         self.title = title
         self.description = description
@@ -41,6 +45,8 @@ struct Listing: Codable, Identifiable, Hashable {
         self.image = image
         self.owner = owner
         self.reviews = reviews
+        self.latitude = latitude
+        self.longitude = longitude
     }
     
     init(from decoder: Decoder) throws {
@@ -53,6 +59,8 @@ struct Listing: Codable, Identifiable, Hashable {
         self.country = try container.decode(String.self, forKey: .country)
         self.image = try container.decode(ListingImage.self, forKey: .image)
         self.reviews = (try? container.decode([Review].self, forKey: .reviews)) ?? []
+        self.latitude = try? container.decode(Double.self, forKey: .latitude)
+        self.longitude = try? container.decode(Double.self, forKey: .longitude)
         
         // Resolve ID
         if let idFromUnderscore = try? container.decode(String.self, forKey: .id) {
