@@ -28,7 +28,7 @@ final class ListingRepository: ListingRepositoryProtocol {
             location: "Agra",
             country: "India",
             image: Listing.ListingImage(
-                url: "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80",
+                url: "https://res.cloudinary.com/dy6ybmtf3/image/fetch/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1564507592333-c60657eea523%3Fauto%3Dformat%26fit%3Dcrop%26w%3D800%26q%3D80",
                 filename: "india_taj"
             ),
             owner: mockHost,
@@ -44,7 +44,7 @@ final class ListingRepository: ListingRepositoryProtocol {
             location: "Udaipur",
             country: "India",
             image: Listing.ListingImage(
-                url: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=800&q=80",
+                url: "https://res.cloudinary.com/dy6ybmtf3/image/fetch/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1590050752117-238cb0fb12b1%3Fauto%3Dformat%26fit%3Dcrop%26w%3D800%26q%3D80",
                 filename: "india_udaipur"
             ),
             owner: mockHost,
@@ -58,7 +58,7 @@ final class ListingRepository: ListingRepositoryProtocol {
             location: "Goa",
             country: "India",
             image: Listing.ListingImage(
-                url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+                url: "https://res.cloudinary.com/dy6ybmtf3/image/fetch/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1507525428034-b723cf961d3e%3Fauto%3Dformat%26fit%3Dcrop%26w%3D800%26q%3D80",
                 filename: "india_goa"
             ),
             owner: mockHost,
@@ -73,7 +73,7 @@ final class ListingRepository: ListingRepositoryProtocol {
             location: "Arizona",
             country: "USA",
             image: Listing.ListingImage(
-                url: "https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?auto=format&fit=crop&w=800&q=80",
+                url: "https://res.cloudinary.com/dy6ybmtf3/image/fetch/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1474044159687-1ee9f3a51722%3Fauto%3Dformat%26fit%3Dcrop%26w%3D800%26q%3D80",
                 filename: "usa_canyon"
             ),
             owner: mockHost,
@@ -89,7 +89,7 @@ final class ListingRepository: ListingRepositoryProtocol {
             location: "Malibu",
             country: "USA",
             image: Listing.ListingImage(
-                url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+                url: "https://res.cloudinary.com/dy6ybmtf3/image/fetch/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1512917774080-9991f1c4c750%3Fauto%3Dformat%26fit%3Dcrop%26w%3D800%26q%3D80",
                 filename: "usa_malibu"
             ),
             owner: mockHost,
@@ -103,7 +103,7 @@ final class ListingRepository: ListingRepositoryProtocol {
             location: "New York",
             country: "USA",
             image: Listing.ListingImage(
-                url: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+                url: "https://res.cloudinary.com/dy6ybmtf3/image/fetch/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1502672260266-1c1ef2d93688%3Fauto%3Dformat%26fit%3Dcrop%26w%3D800%26q%3D80",
                 filename: "usa_manhattan"
             ),
             owner: mockHost,
@@ -118,7 +118,7 @@ final class ListingRepository: ListingRepositoryProtocol {
             location: "Paris",
             country: "France",
             image: Listing.ListingImage(
-                url: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
+                url: "https://res.cloudinary.com/dy6ybmtf3/image/fetch/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1502602898657-3e91760cbb34%3Fauto%3Dformat%26fit%3Dcrop%26w%3D800%26q%3D80",
                 filename: "europe_paris"
             ),
             owner: mockHost,
@@ -134,7 +134,7 @@ final class ListingRepository: ListingRepositoryProtocol {
             location: "Rome",
             country: "Italy",
             image: Listing.ListingImage(
-                url: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=800&q=80",
+                url: "https://res.cloudinary.com/dy6ybmtf3/image/fetch/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1552832230-c0197dd311b5%3Fauto%3Dformat%26fit%3Dcrop%26w%3D800%26q%3D80",
                 filename: "europe_rome"
             ),
             owner: mockHost,
@@ -148,7 +148,7 @@ final class ListingRepository: ListingRepositoryProtocol {
             location: "Zermatt",
             country: "Switzerland",
             image: Listing.ListingImage(
-                url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+                url: "https://res.cloudinary.com/dy6ybmtf3/image/fetch/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1506744038136-46273834b3fb%3Fauto%3Dformat%26fit%3Dcrop%26w%3D800%26q%3D80",
                 filename: "europe_swiss"
             ),
             owner: mockHost,

@@ -16,6 +16,9 @@ struct ListingsMapView: View {
     @State private var cameraPosition: MapCameraPosition = .automatic
     @State private var selectedPin: ListingPin? = nil
     
+    @StateObject private var locationManager = LocationManager()
+    @State private var hasCenteredOnUser = false
+    
     private var pins: [ListingPin] {
         listViewModel.listings.compactMap { listing in
             guard let coord = coordinateCache[listing.id] else { return nil }
@@ -28,6 +31,8 @@ struct ListingsMapView: View {
             ZStack {
                 // Interactive Map View
                 Map(position: $cameraPosition, selection: $selectedPin) {
+                    UserAnnotation() // Shows the blue pulse for user location
+                    
                     ForEach(pins) { pin in
                         // Use Annotation for highly customizable Airbnb style pins
                         Annotation(pin.listing.title, coordinate: pin.coordinate) {
@@ -73,12 +78,29 @@ struct ListingsMapView: View {
             }
             .navigationTitle("Explore Map")
             .navigationBarTitleDisplayModeInline()
+            .onAppear {
+                locationManager.startUpdatingLocation()
+            }
+            .onDisappear {
+                locationManager.stopUpdatingLocation()
+            }
             .task {
                 await listViewModel.fetchListings()
                 geocodeAllListings()
             }
             .onChange(of: listViewModel.listings) { _, newListings in
                 geocodeAllListings()
+            }
+            .onChange(of: locationManager.location) { _, newLocation in
+                if let userLoc = newLocation, !hasCenteredOnUser {
+                    withAnimation(.spring()) {
+                        self.cameraPosition = .region(MKCoordinateRegion(
+                            center: userLoc.coordinate,
+                            span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)
+                        ))
+                        self.hasCenteredOnUser = true
+                    }
+                }
             }
         }
     }
@@ -98,8 +120,8 @@ struct ListingsMapView: View {
                         withAnimation {
                             self.coordinateCache[listing.id] = coord
                             
-                            // Adjust map window center if this is the first pin geocoded
-                            if self.coordinateCache.count == 1 {
+                            // Adjust map window center if this is the first pin geocoded and we haven't centered on user location
+                            if self.coordinateCache.count == 1 && !self.hasCenteredOnUser {
                                 self.cameraPosition = .region(MKCoordinateRegion(
                                     center: coord,
                                     span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)

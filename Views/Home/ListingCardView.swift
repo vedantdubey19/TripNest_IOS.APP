@@ -29,6 +29,9 @@ struct ListingCardView: View {
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
+                            .frame(minWidth: 0, maxWidth: .infinity)
+                            .frame(height: 200)
+                            .clipped()
                     case .failure:
                         Rectangle()
                             .fill(Color.white.opacity(0.05))
@@ -42,6 +45,7 @@ struct ListingCardView: View {
                     }
                 }
                 .frame(height: 200)
+                .frame(maxWidth: .infinity)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 
                 // Top Overlays Row (Star on Left, Rating on Right)

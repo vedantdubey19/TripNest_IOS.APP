@@ -394,6 +394,7 @@ def main():
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_NSAppTransportSecurity[NSAllowsArbitraryLoads]" = YES;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Verify your identity to authenticate secure stay bookings with Apple Pay.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "TripNest needs your location to display close-by stay listings on the map.";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -422,6 +423,7 @@ def main():
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_NSAppTransportSecurity[NSAllowsArbitraryLoads]" = YES;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Verify your identity to authenticate secure stay bookings with Apple Pay.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "TripNest needs your location to display close-by stay listings on the map.";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

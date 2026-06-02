@@ -9,8 +9,21 @@ struct HomeView: View {
     
     // Grid configuration for iPhone layout (2 columns)
     private let columns = [
-        GridItem(.adaptive(minimum: 160), spacing: 16)
+        GridItem(.flexible(), spacing: 16),
+        GridItem(.flexible(), spacing: 16)
     ]
+    
+    private func iconForCategory(_ category: String) -> String {
+        switch category {
+        case "All": return "safari.fill"
+        case "Stays": return "bed.double.fill"
+        case "Beachfront": return "beach.umbrella.fill"
+        case "Mountain": return "mountain.2.fill"
+        case "Trending": return "flame.fill"
+        case "Cabins": return "tent.fill"
+        default: return "house.fill"
+        }
+    }
     
     var body: some View {
         NavigationStack {
@@ -90,22 +103,27 @@ struct HomeView: View {
                                         listViewModel.selectedCategory = category
                                     }
                                 }) {
-                                    Text(category)
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                        .padding(.horizontal, 16)
-                                        .padding(.vertical, 8)
-                                        .background(
-                                            listViewModel.selectedCategory == category ?
-                                            LinearGradient(colors: [.blue, .indigo], startPoint: .topLeading, endPoint: .bottomTrailing) :
-                                            LinearGradient(colors: [listViewModel.themeCardBg], startPoint: .leading, endPoint: .trailing)
-                                        )
-                                        .foregroundColor(listViewModel.isDarkMode ? .white : (listViewModel.selectedCategory == category ? .white : .black))
-                                        .cornerRadius(20)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .stroke(listViewModel.selectedCategory == category ? Color.blue.opacity(0.3) : listViewModel.themeBorder, lineWidth: 1)
-                                        )
+                                    HStack(spacing: 8) {
+                                        Image(systemName: iconForCategory(category))
+                                            .font(.system(size: 14, weight: .semibold))
+                                        
+                                        Text(category)
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                    }
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 10)
+                                    .background(
+                                        listViewModel.selectedCategory == category ?
+                                        LinearGradient(colors: [.blue, .indigo], startPoint: .topLeading, endPoint: .bottomTrailing) :
+                                        LinearGradient(colors: [listViewModel.themeCardBg], startPoint: .leading, endPoint: .trailing)
+                                    )
+                                    .foregroundColor(listViewModel.isDarkMode ? .white : (listViewModel.selectedCategory == category ? .white : .black))
+                                    .cornerRadius(22)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 22)
+                                            .stroke(listViewModel.selectedCategory == category ? Color.blue.opacity(0.3) : listViewModel.themeBorder, lineWidth: 1)
+                                    )
                                 }
                             }
                         }
